@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+    <bean class="io.ssafy.luckyweeky.application.userEntity.JoinController" id="aB12Xz/RClmJ"/>
+    <bean class="io.ssafy.luckyweeky.application.userEntity.GoogleJoinController" id="aB12Xz/GkXMKFQ"/>
+    <bean class="io.ssafy.luckyweeky.application.userEntity.LoginController" id="aB12Xz/LWyAtd"/>
+    <bean class="io.ssafy.luckyweeky.application.userEntity.GoogleLoginController" id="aB12Xz/TcyZmNQ"/>
+    <bean class="io.ssafy.luckyweeky.application.userEntity.LogoutController" id="aB12Xz/odsQk"/>
+    <bean class="io.ssafy.luckyweeky.application.userEntity.ChangePasswordController" id="aB12Xz/SHVLC"/>
+</beans>
