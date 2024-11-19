@@ -11,7 +11,6 @@ public interface Controller {
 	public void service(
 			HttpServletRequest request,
 			HttpServletResponse response, 
-			JsonObject reqjson,
 			JsonObject respJson
 			) throws Exception;
 }

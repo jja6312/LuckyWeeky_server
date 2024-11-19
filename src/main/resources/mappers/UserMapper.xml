@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="io.ssafy.luckyweeky.domain.userEntity.repository.UserMapper">
+<mapper namespace="io.ssafy.luckyweeky.domain.user.repository.UserMapper">
     <!-- 사용자 추가 -->
-    <insert id="insertUser" parameterType="UserEntity">
+    <insert id="insertUser" parameterType="userEntity">
         INSERT INTO User (
-            user_id, username, email, password_hash, oauth_provider, oauth_id,
-            name, birth_date, profile_image_key, last_login_at, created_at, updated_at
+            user_id, username, email, password_hash, oauth_provider, oauth_id, birth_date, profile_image_key, last_login_at, created_at, updated_at
         )
         VALUES (
                    #{userId}, #{username}, #{email}, #{passwordHash}, #{oauthProvider}, #{oauthId},
-                   #{name}, #{birthDate}, #{profileImageKey}, #{lastLoginAt}, now(), now()
+                   #{birthDate}, #{profileImageKey}, null, now(), now()
                )
     </insert>
 
     <!--  사용자 비밀번호 salt 추가  -->
-    <insert id="insertUserSalt" parameterType="UserSaltEntity">
+    <insert id="insertUserSalt" parameterType="userSaltEntity">
         INSERT INTO UserSalt (user_id, salt)
         VALUES (#{userId}, #{salt})
     </insert>
 
     <!-- user_id로 사용자 조회 -->
-    <select id="findById" parameterType="long" resultType="UserEntity">
+    <select id="findById" parameterType="long" resultType="userEntity">
         SELECT * FROM User WHERE user_id = #{userId}
     </select>
 
     <!-- 이메일로 사용자 조회 -->
-    <select id="findByEmail" parameterType="string" resultType="UserEntity">
-        SELECT
-            *
-        FROM User
-        WHERE email = #{email}
+    <select id="findByEmail" parameterType="string" resultType="userEntity">
+        SELECT * FROM User WHERE email = #{email}
     </select>
 
     <!-- 이메일로 salt 조회 -->

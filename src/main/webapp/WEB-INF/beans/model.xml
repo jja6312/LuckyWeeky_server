@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-    <bean class="io.ssafy.luckyweeky.domain.userEntity.service.UserService" id="userService"/>
+    <bean class="io.ssafy.luckyweeky.domain.user.repository.UserRepository" id="userRepository"/>
+    <bean class="io.ssafy.luckyweeky.domain.user.service.UserService" id="userService"/>
 </beans>

@@ -18,7 +18,7 @@ public class ChangePasswordController implements Controller {
 	}
 
 	@Override
-	public void service(HttpServletRequest request, HttpServletResponse response, JsonObject reqjson,
+	public void service(HttpServletRequest request, HttpServletResponse response,
 						JsonObject respJson) throws ServletException, IOException {
 		respJson.addProperty("msg","ChangePasswordController");
 	}

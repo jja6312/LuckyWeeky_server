@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class UserEntity implements Serializable {
-    private static final long serialVersionUID = 1L;
     private long userId;                  // 유저 고유 ID
     private String username;             // 사용자 이름
     private String email;                // 이메일
@@ -17,6 +16,8 @@ public class UserEntity implements Serializable {
     private LocalDateTime lastLoginAt;   // 마지막 로그인 시간
     private LocalDateTime createdAt;     // 생성 날짜
     private LocalDateTime updatedAt;     // 업데이트 날짜
+
+    public UserEntity() {}
 
     // Private Constructor
     private UserEntity(Builder builder) {
@@ -107,48 +108,91 @@ public class UserEntity implements Serializable {
         }
     }
 
-    // Getters
     public long getUserId() {
         return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPasswordHash() {
         return passwordHash;
     }
 
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
     public String getOauthProvider() {
         return oauthProvider;
+    }
+
+    public void setOauthProvider(String oauthProvider) {
+        this.oauthProvider = oauthProvider;
     }
 
     public String getOauthId() {
         return oauthId;
     }
 
+    public void setOauthId(String oauthId) {
+        this.oauthId = oauthId;
+    }
+
     public LocalDate getBirthDate() {
         return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getProfileImageKey() {
         return profileImageKey;
     }
 
+    public void setProfileImageKey(String profileImageKey) {
+        this.profileImageKey = profileImageKey;
+    }
+
     public LocalDateTime getLastLoginAt() {
         return lastLoginAt;
+    }
+
+    public void setLastLoginAt(LocalDateTime lastLoginAt) {
+        this.lastLoginAt = lastLoginAt;
     }
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

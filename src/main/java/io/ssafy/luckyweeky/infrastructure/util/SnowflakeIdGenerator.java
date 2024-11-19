@@ -1,5 +1,10 @@
 package io.ssafy.luckyweeky.infrastructure.util;
 
+import io.github.cdimascio.dotenv.Dotenv;
+import io.ssafy.luckyweeky.dispatcher.DispatcherServlet;
+
+import java.io.File;
+
 public class SnowflakeIdGenerator {
     private static SnowflakeIdGenerator instance; // 싱글톤 인스턴스
 
@@ -18,7 +23,12 @@ public class SnowflakeIdGenerator {
 
     // private 생성자
     private SnowflakeIdGenerator() {
-        String machineIdStr = System.getenv("MACHINE_ID");
+        // 1. .env 파일 로드
+        Dotenv dotenv = Dotenv.configure()
+                .directory(DispatcherServlet.getWebInfPath()+ File.separatorChar)
+                .filename(".env") // 파일 이름 지정 (기본값: ".env")
+                .load();
+        String machineIdStr = dotenv.get("MACHINE_ID");
         if (machineIdStr == null) {
             throw new IllegalArgumentException("Machine ID not set");
         }

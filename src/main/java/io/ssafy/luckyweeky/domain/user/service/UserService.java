@@ -1,5 +1,6 @@
 package io.ssafy.luckyweeky.domain.user.service;
 
+import io.ssafy.luckyweeky.dispatcher.DispatcherServlet;
 import io.ssafy.luckyweeky.dispatcher.dto.GeneralSignupUser;
 import io.ssafy.luckyweeky.dispatcher.dto.LoginUser;
 import io.ssafy.luckyweeky.domain.user.model.UserEntity;
@@ -57,19 +58,31 @@ public class UserService {
         if (isEmailExists(generalSignupUser.getEmail())) {
             return false;
         }
+
         if (filePart != null) {
             File tempFile = null;
             try {
+                // 파일 확장자 추출
                 int lastDotIndex = generalSignupUser.getProfileImageKey().lastIndexOf(".");
                 String extension = (lastDotIndex != -1) ? generalSignupUser.getProfileImageKey().substring(lastDotIndex) : ".jpg";
+
+                // 프로젝트 디렉토리 기준으로 임시 파일 저장 경로 설정
+                String tempDirPath = DispatcherServlet.getWebInfPath()+"/temp";
+                File tempDir = new File(tempDirPath);
+                if (!tempDir.exists()) {
+                    tempDir.mkdirs(); // 디렉토리가 없으면 생성
+                }
+
                 // 임시 파일 생성
-                tempFile = File.createTempFile("upload-", extension);
+                tempFile = File.createTempFile("upload-", extension, tempDir);
+
                 // 파일 쓰기
                 filePart.write(tempFile.getAbsolutePath());
+
                 // S3에 파일 등록
                 S3Fileloader.getInstance().upload(tempFile, generalSignupUser.getProfileImageKey());
             } catch (Exception e) {
-                throw new Exception(e.getMessage());
+                throw new Exception("파일 업로드 에러 코드 작성");
             } finally {
                 if (tempFile != null && tempFile.exists()) {
                     // 임시 파일 삭제

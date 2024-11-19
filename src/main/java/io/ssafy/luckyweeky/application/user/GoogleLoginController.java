@@ -18,7 +18,7 @@ public class GoogleLoginController implements Controller {
 	}
 	
 	@Override
-	public void service(HttpServletRequest request, HttpServletResponse response, JsonObject reqJson,
+	public void service(HttpServletRequest request, HttpServletResponse response,
 			JsonObject respJson) throws ServletException, IOException {
 		respJson.addProperty("msg","GoogleLoginController");
 	}

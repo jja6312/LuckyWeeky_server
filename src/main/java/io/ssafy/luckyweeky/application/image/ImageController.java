@@ -11,9 +11,9 @@ import java.io.OutputStream;
 
 public class ImageController implements Controller {
     @Override
-    public void service(HttpServletRequest request, HttpServletResponse response, JsonObject reqJson, JsonObject respJson) throws Exception{
+    public void service(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws Exception{
         // URL 경로에서 keyName 추출
-        String keyName = request.getPathInfo().substring(1); // "/image/{keyName}"에서 {keyName} 추출
+        String keyName = request.getRequestURI().split("/")[4]; // "/image/{keyName}"에서 {keyName} 추출
 
         // S3에서 파일 스트림 가져오기
         InputStream inputStream = S3Fileloader.getInstance().download(keyName);

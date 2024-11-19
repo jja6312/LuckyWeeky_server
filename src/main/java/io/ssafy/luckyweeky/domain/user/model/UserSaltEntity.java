@@ -4,6 +4,9 @@ public class UserSaltEntity {
     private long userId;
     private String salt;
 
+    public UserSaltEntity() {
+    }
+
     public UserSaltEntity(long userId, String salt) {
         this.userId = userId;
         this.salt = salt;

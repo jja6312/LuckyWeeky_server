@@ -1,6 +1,7 @@
 package io.ssafy.luckyweeky.infrastructure.storage;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import io.ssafy.luckyweeky.dispatcher.DispatcherServlet;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -28,7 +29,10 @@ public class S3Fileloader {
     }
     public static synchronized S3Fileloader getInstance() {
         if (instance == null) {
-            Dotenv dotenv = Dotenv.load();
+            Dotenv dotenv = Dotenv.configure()
+                    .directory(DispatcherServlet.getWebInfPath()+ File.separatorChar)
+                    .filename(".env")
+                    .load();
             String accessKey = dotenv.get("AWS_ACCESS_KEY");
             String secretKey = dotenv.get("AWS_SECRET_KEY");
             BUCKET_NAME = dotenv.get("BUCKET_NAME");
@@ -59,6 +63,7 @@ public class S3Fileloader {
 
             return s3Client.getObject(getObjectRequest);
         } catch (S3Exception e) {
+            e.printStackTrace();
             throw new Exception("S3이미지 파일 not found에러");
         }
     }

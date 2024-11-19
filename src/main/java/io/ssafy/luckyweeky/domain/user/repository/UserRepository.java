@@ -38,6 +38,7 @@ public class UserRepository {
             session.commit(); // 트랜잭션 커밋
             return true;
         }catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }
