@@ -9,8 +9,7 @@
     </settings>
     <!-- Type Alias 설정 -->
     <typeAliases>
-        <package name="io.ssafy.luckyweeky.domain.user.model" />
-        <package name="io.ssafy.luckyweeky.domain.schedule.model" />
+        <package name="io.ssafy.luckyweeky.user.domain.model" />
     </typeAliases>
 
     <!-- 환경 설정 -->
