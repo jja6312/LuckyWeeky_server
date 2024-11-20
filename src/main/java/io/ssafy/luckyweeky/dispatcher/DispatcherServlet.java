@@ -1,7 +1,6 @@
 package io.ssafy.luckyweeky.dispatcher;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import io.ssafy.luckyweeky.application.Controller;
 import io.ssafy.luckyweeky.infrastructure.config.bean.XmlBeanFactory;
 import io.ssafy.luckyweeky.infrastructure.storage.S3Fileloader;
@@ -43,7 +42,19 @@ public class DispatcherServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        String uri = request.getRequestURI();
+
+        String path = uri.substring(8);
+        if(path.contains("qweSJqwo")){
+            Controller imageController = (Controller) XmlBeanFactory.getBean("qweSJqwo");
+            try {
+                imageController.service(request, response, null);
+            } catch (Exception e) {
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+            }
+            return;
+        }
         process(request, response);
     }
 
@@ -66,11 +77,7 @@ public class DispatcherServlet extends HttpServlet {
                 respJson.addProperty("errCode","C01");
                 throw new IllegalArgumentException("Invalid URI: " + uri);
             }
-            String path = uri.substring(contextPath.length());
-            if(path.contains("qweSJqwo")){
-                path = "qweSJqwo";
-            }
-
+            String path = uri.substring(8);
             Controller controller = (Controller) XmlBeanFactory.getBean(path);
             if (controller == null) {
                 respJson.addProperty("errCode","C02");

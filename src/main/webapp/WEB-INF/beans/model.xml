@@ -2,4 +2,5 @@
 <beans>
     <bean class="io.ssafy.luckyweeky.domain.user.repository.UserRepository" id="userRepository"/>
     <bean class="io.ssafy.luckyweeky.domain.user.service.UserService" id="userService"/>
+    <bean class="io.ssafy.luckyweeky.domain.chatgpt.service.ChatgptService" id="chatgptService"/>
 </beans>

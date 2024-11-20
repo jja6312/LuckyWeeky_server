@@ -7,4 +7,5 @@
     <bean class="io.ssafy.luckyweeky.application.user.LogoutController" id="aB12Xz/odsQk"/>
     <bean class="io.ssafy.luckyweeky.application.user.ChangePasswordController" id="aB12Xz/SHVLC"/>
     <bean class="io.ssafy.luckyweeky.application.image.ImageController" id="qweSJqwo"/>
+    <bean class="io.ssafy.luckyweeky.application.chatgpt.RequestAnalysisController" id="qwDioSA"/>
 </beans>
