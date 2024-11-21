@@ -8,6 +8,8 @@
 *.ipr
 *.iws
 
+
+
 # Exclude specific IDEA settings explicitly if needed
 !.idea/misc.xml
 !.idea/modules.xml
