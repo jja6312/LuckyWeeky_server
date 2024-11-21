@@ -1,11 +1,13 @@
 package io.ssafy.luckyweeky.scheduleAi.presentation;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.ssafy.luckyweeky.common.config.XmlBeanFactory;
 import io.ssafy.luckyweeky.common.implement.Controller;
 import io.ssafy.luckyweeky.common.util.parser.RequestJsonParser;
 import io.ssafy.luckyweeky.common.util.url.RequestUrlPath;
-import io.ssafy.luckyweeky.scheduleAi.application.dto.AnalyticalData;
+import io.ssafy.luckyweeky.scheduleAi.application.dto.request.CreateAiScheduleRequestDTO;
+import io.ssafy.luckyweeky.scheduleAi.application.dto.request.ReRequestAiScheduleDTO;
 import io.ssafy.luckyweeky.scheduleAi.application.service.ScheduleAiService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,7 +36,7 @@ public class ScheduleAiController implements Controller {
                     break;
                 }
                 case "LdslbEd": { // 다른 액션 처리
-                    // 추가 액션 처리 로직
+//                    reRequestGenerateSchedule(request, response, respJson);
                     break;
                 }
                 default: {
@@ -47,6 +49,28 @@ public class ScheduleAiController implements Controller {
         }
     }
 
+//    private void reRequestGenerateSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException {
+//        // JSON 데이터 파싱
+//        JsonObject requestData = null;
+//        try (BufferedReader reader = request.getReader()) {
+//            requestData = RequestJsonParser.getInstance().parseFromBody(reader);
+//        };
+//
+//        // DTO 생성
+//        ReRequestAiScheduleDTO reRequestAiScheduleDTO = new ReRequestAiScheduleDTO(
+////                requestData.has("additionalRequest")
+//        );
+//
+//
+//        // 서비스 호출
+//        String aiGeneratedResult = scheduleAiService.generateSchedule(createAiScheduleRequestDTO);
+//        System.out.println("aiGeneratedResult: " + aiGeneratedResult);
+//
+//        // 응답 데이터 구성
+//        respJson.addProperty("result", "true");
+//        respJson.add("schedule", JsonParser.parseString(aiGeneratedResult).getAsJsonObject());
+//    }
+
     private void generateSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException, ServletException {
         // JSON 데이터 파싱
         JsonObject requestData = null;
@@ -55,7 +79,7 @@ public class ScheduleAiController implements Controller {
         };
 
         // DTO 생성
-        AnalyticalData analyticalData = new AnalyticalData(
+        CreateAiScheduleRequestDTO createAiScheduleRequestDTO = new CreateAiScheduleRequestDTO(
                 LocalDateTime.parse(requestData.get("startDate").getAsString()), // LocalDateTime으로 변환
                 LocalDateTime.parse(requestData.get("endDate").getAsString()),   // LocalDateTime으로 변환
                 requestData.get("task").getAsString(),
@@ -65,11 +89,12 @@ public class ScheduleAiController implements Controller {
 
 
         // 서비스 호출
-        String aiGeneratedResult = scheduleAiService.generateSchedule(analyticalData);
+        String aiGeneratedResult = scheduleAiService.generateSchedule(createAiScheduleRequestDTO);
+        System.out.println("aiGeneratedResult: " + aiGeneratedResult);
 
         // 응답 데이터 구성
         respJson.addProperty("result", "true");
-        respJson.addProperty("schedule", aiGeneratedResult);
+        respJson.add("schedule", JsonParser.parseString(aiGeneratedResult).getAsJsonObject());
     }
 
 }

@@ -3,7 +3,6 @@ package io.ssafy.luckyweeky.scheduleAi.application.service;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.ssafy.luckyweeky.common.DispatcherServlet;
 import io.ssafy.luckyweeky.scheduleAi.domain.prompt.AIPromptGenerator;
-import io.ssafy.luckyweeky.scheduleAi.application.dto.AnalyticalData;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,14 +26,11 @@ public class ChatgptService {
         this.OPENAI_API_KEY = dotenv.get("OPENAI_API_KEY");
         this.GPT_API_ENDPOINT = dotenv.get("GPT_API_ENDPOINT");
 
-        System.out.println("OPENAI_API_KEY: " + OPENAI_API_KEY);
-        System.out.println("GPT_API_ENDPOINT: " + GPT_API_ENDPOINT);
-
         // OkHttpClient 초기화
         this.client = new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(60, TimeUnit.SECONDS)
-                .writeTimeout(60, TimeUnit.SECONDS)
+                .connectTimeout(260, TimeUnit.SECONDS)
+                .readTimeout(260, TimeUnit.SECONDS)
+                .writeTimeout(260, TimeUnit.SECONDS)
                 .build();
     }
 
@@ -46,7 +42,7 @@ public class ChatgptService {
 
         // JSON 요청 생성
         JSONObject json = new JSONObject();
-        json.put("model", "gpt-3.5-turbo");
+        json.put("model", "gpt-4"); // 변경된 모델 이름
         json.put("messages", new JSONArray()
                 .put(new JSONObject()
                         .put("role", "system")
@@ -55,8 +51,11 @@ public class ChatgptService {
                         .put("role", "user")
                         .put("content", prompt))
         );
-        json.put("max_tokens", 300);
-        json.put("temperature", 0.7);
+        // 입력 토큰 수 추정값
+        int estimatedInputTokens = prompt.length() / 4 + AIPromptGenerator.INITIAL_PROMPT_TEMPLATE.length() / 4;
+
+        // max_tokens 설정
+        json.put("max_tokens", Math.min(8000 - estimatedInputTokens, 4000)); // 안전 범위 내 설정        json.put("temperature", 1);
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"),
@@ -76,7 +75,7 @@ public class ChatgptService {
             }
 
             // 응답에서 메시지 추출
-            return extractMessageFromChatResponse(response.body().string());
+            return extractMessageFromChatResponse(new String(response.body().bytes(), "UTF-8"));
         }
     }
 
