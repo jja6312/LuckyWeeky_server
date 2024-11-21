@@ -25,7 +25,6 @@ public class ScheduleRepository {
             session.commit();
             return true;
         }catch (RuntimeException e){
-            e.printStackTrace();
             return false;
         }
     }

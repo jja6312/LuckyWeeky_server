@@ -5,12 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ScheduleDto {
-    private Long userId;
-    private String mainTitle;
-    private String color;
-    private LocalDateTime startTime; // 시작 시간
-    private LocalDateTime endTime; // 종
-    private List<SubScheduleDto> subSchedules;
+    private final Long userId;
+    private final String mainTitle;
+    private final String color;
+    private final LocalDateTime startTime; // 시작 시간
+    private final LocalDateTime endTime; // 종
+    private final List<SubScheduleDto> subSchedules;
 
     public ScheduleDto(Long userId,String mainTitle, String color, String startTime, String endTime, List<SubScheduleDto> subSchedules) {
         this.userId = userId;

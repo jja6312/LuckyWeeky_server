@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class SubScheduleDto {
-    private String title;
-    private String description;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private final String title;
+    private final String description;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
 
     public SubScheduleDto(String title, String description, String startTime, String endTime) {
         this.title = title;
