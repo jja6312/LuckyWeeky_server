@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
     <bean class="io.ssafy.luckyweeky.user.presentation.UserController" id="aB12Xz"/>
+    <bean class="io.ssafy.luckyweeky.scheduleAi.presentation.ScheduleAiController" id="qwDioSA"/>
 
 
 <!--    <bean class="io.ssafy.luckyweeky.user.application.service.SignupController" id="aB12Xz/RClmJ"/>-->
