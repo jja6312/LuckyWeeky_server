@@ -1,7 +1,9 @@
 package io.ssafy.luckyweeky.scheduleAi.application.service;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.ssafy.luckyweeky.common.config.XmlBeanFactory;
-import io.ssafy.luckyweeky.scheduleAi.application.dto.AnalyticalData;
+import io.ssafy.luckyweeky.scheduleAi.application.dto.request.CreateAiScheduleRequestDTO;
 import io.ssafy.luckyweeky.scheduleAi.domain.prompt.AIPromptGenerator;
 
 import java.io.IOException;
@@ -13,9 +15,9 @@ public class ScheduleAiService {
         this.chatgptService = (ChatgptService) XmlBeanFactory.getBean("chatgptService");
 
     }
-    public String generateSchedule(AnalyticalData analyticalData) throws IOException {
+    public String generateSchedule(CreateAiScheduleRequestDTO createAiScheduleRequestDTO) throws IOException {
         // 프롬프트 생성
-        String prompt = AIPromptGenerator.generateInitialPrompt(analyticalData);
+        String prompt = AIPromptGenerator.generateInitialPrompt(createAiScheduleRequestDTO);
 
         // ChatGPT 호출
         return chatgptService.createChat(prompt);
