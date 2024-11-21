@@ -10,6 +10,7 @@
     <!-- Type Alias 설정 -->
     <typeAliases>
         <package name="io.ssafy.luckyweeky.user.domain.model" />
+        <package name="io.ssafy.luckyweeky.schedule.domain.model" />
     </typeAliases>
 
     <!-- 환경 설정 -->
@@ -28,7 +29,7 @@
     <!-- 매퍼 설정 -->
     <mappers>
         <mapper resource="mappers/UserMapper.xml" />
-<!--        <mapper resource="mappers/SubScheduleMapper.xml" />-->
-<!--        <mapper resource="mappers/MainScheduleMapper.xml" />-->
+        <mapper resource="mappers/SubScheduleMapper.xml" />
+        <mapper resource="mappers/MainScheduleMapper.xml" />
     </mappers>
 </configuration>

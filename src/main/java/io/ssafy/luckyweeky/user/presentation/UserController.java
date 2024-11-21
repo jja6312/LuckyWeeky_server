@@ -21,7 +21,6 @@ public class UserController implements Controller {
     private static final String FILE_PART = "file";
     private static final String DEFAULT_PROFILE_IMAGE = "profile-images/default.png";
     private static final String MULTIPART_FORM_DATA = "multipart/form-data";
-    private static final String EMAIL = "email";
 
     private final UserService userService;
 
@@ -41,7 +40,6 @@ public class UserController implements Controller {
         }
     }
 
-    // @PostMapping("signup")
     public void userSignUp(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
         JsonObject jsonObject = RequestJsonParser.getInstance().parse(request.getPart(USER_PART));
         Part filePart = getFilePart(request);
@@ -62,17 +60,6 @@ public class UserController implements Controller {
             throw new IllegalArgumentException("회원가입 실패 코드 작성");
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 
     private Part getFilePart(HttpServletRequest request){
         try {

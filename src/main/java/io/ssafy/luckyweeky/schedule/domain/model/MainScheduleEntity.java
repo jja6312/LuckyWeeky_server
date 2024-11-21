@@ -1,39 +1,29 @@
-package io.ssafy.luckyweeky.schedule.domain;
+package io.ssafy.luckyweeky.schedule.domain.model;
 
 import java.time.LocalDateTime;
 
-public class SubScheduleEntity {
-    private Long subScheduleId; // 소일정 고유 ID
-    private Long mainScheduleId; // 대일정 ID
-    private String title; // 소일정 제목
-    private String description; // 소일정 내용
+public class MainScheduleEntity {
+    private Long mainScheduleId; // 대일정 고유 ID
+    private Long userId; // 유저 ID
+    private String title; // 대일정 제목
     private LocalDateTime startTime; // 시작 시간
     private LocalDateTime endTime; // 종료 시간
-    private boolean isCompleted; // 완료 여부
+    private String color; // 색상 코드 (기본값: #cccccc)
     private LocalDateTime createdAt; // 생성 날짜
     private LocalDateTime updatedAt; // 업데이트 날짜
 
-    public SubScheduleEntity(Long subScheduleId, Long mainScheduleId, String title, String description, LocalDateTime startTime, LocalDateTime endTime) {
-        this.subScheduleId = subScheduleId;
+    public MainScheduleEntity(Long mainScheduleId, Long userId, String title, LocalDateTime startTime, LocalDateTime endTime, String color) {
         this.mainScheduleId = mainScheduleId;
+        this.userId = userId;
         this.title = title;
-        this.description = description;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.isCompleted = false;
+        this.color = (color != null) ? color : "#cccccc";
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
     // Getters and Setters
-    public Long getSubScheduleId() {
-        return subScheduleId;
-    }
-
-    public void setSubScheduleId(Long subScheduleId) {
-        this.subScheduleId = subScheduleId;
-    }
-
     public Long getMainScheduleId() {
         return mainScheduleId;
     }
@@ -42,20 +32,20 @@ public class SubScheduleEntity {
         this.mainScheduleId = mainScheduleId;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public LocalDateTime getStartTime() {
@@ -74,12 +64,12 @@ public class SubScheduleEntity {
         this.endTime = endTime;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
+    public String getColor() {
+        return color;
     }
 
-    public void setCompleted(boolean completed) {
-        isCompleted = completed;
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public LocalDateTime getCreatedAt() {

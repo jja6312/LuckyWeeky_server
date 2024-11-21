@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
     <bean class="io.ssafy.luckyweeky.user.presentation.UserController" id="aB12Xz"/>
-
-
-<!--    <bean class="io.ssafy.luckyweeky.user.application.service.SignupController" id="aB12Xz/RClmJ"/>-->
-<!--    <bean class="io.ssafy.luckyweeky.application.user.GoogleSignupController" id="aB12Xz/GkXMKFQ"/>-->
-<!--    <bean class="io.ssafy.luckyweeky.application.user.LoginController" id="aB12Xz/LWyAtd"/>-->
-<!--    <bean class="io.ssafy.luckyweeky.application.user.GoogleLoginController" id="aB12Xz/TcyZmNQ"/>-->
-<!--    <bean class="io.ssafy.luckyweeky.application.user.LogoutController" id="aB12Xz/odsQk"/>-->
-<!--    <bean class="io.ssafy.luckyweeky.application.user.ChangePasswordController" id="aB12Xz/SHVLC"/>-->
-<!--    <bean class="io.ssafy.luckyweeky.user.application.service.ImageController" id="qweSJqwo"/>-->
-<!--    <bean class="io.ssafy.luckyweeky.scheduleAi.application.service.RequestAnalysisController" id="qwDioSA"/>-->
+    <bean class="io.ssafy.luckyweeky.schedule.presentation.controller.ScheduleController" id="UAKRPCjN"/>
 </beans>
