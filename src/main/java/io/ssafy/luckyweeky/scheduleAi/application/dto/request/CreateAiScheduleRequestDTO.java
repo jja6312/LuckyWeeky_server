@@ -1,16 +1,15 @@
-package io.ssafy.luckyweeky.scheduleAi.application.dto;
+package io.ssafy.luckyweeky.scheduleAi.application.dto.request;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class AnalyticalData {
+public class CreateAiScheduleRequestDTO {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String task;
     private String availableTime;
     private String additionalRequest;
 
-    public AnalyticalData(LocalDateTime startDate, LocalDateTime endDate, String task, String availableTime, String additionalRequest) {
+    public CreateAiScheduleRequestDTO(LocalDateTime startDate, LocalDateTime endDate, String task, String availableTime, String additionalRequest) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.task = task;
