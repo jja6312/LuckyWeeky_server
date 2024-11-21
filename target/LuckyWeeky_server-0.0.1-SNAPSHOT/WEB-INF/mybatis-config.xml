@@ -1,7 +1,0 @@
-<configuration>
-    <mappers>
-        <mapper resource="mapper/UserMapper.xml"/>
-        <mapper resource="mapper/MainScheduleMapper.xml"/>
-        <mapper resource="mapper/SubScheduleMapper.xml"/>
-    </mappers>
-</configuration>

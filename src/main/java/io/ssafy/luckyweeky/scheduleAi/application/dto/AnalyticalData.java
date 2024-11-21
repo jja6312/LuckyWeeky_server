@@ -1,27 +1,28 @@
 package io.ssafy.luckyweeky.scheduleAi.application.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class AnalyticalData {
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
     private String task;
     private String availableTime;
     private String additionalRequest;
 
-    public AnalyticalData(String startDate, String endDate, String task, String availableTime, String additionalRequest) {
-        this.startDate = LocalDate.parse(startDate);
-        this.endDate = LocalDate.parse(endDate);;
+    public AnalyticalData(LocalDateTime startDate, LocalDateTime endDate, String task, String availableTime, String additionalRequest) {
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.task = task;
         this.availableTime = availableTime;
         this.additionalRequest = additionalRequest;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public LocalDate getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="LuckyWeeky_server:war exploded" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c2e55f1e-52b8-4f6e-b5e6-55ea0a5ceec7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/scheduleAi/application/service/ScheduleAiService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/scheduleAi/presentation/ScheduleAiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Tomcat_10_1_28.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/common/config/XmlBeanFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/common/config/XmlBeanFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/schedule/presentation/controller/ScheduleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/schedule/presentation/controller/ScheduleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/scheduleAi/application/dto/AnalyticalData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/scheduleAi/application/dto/AnalyticalData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/scheduleAi/application/service/ChatgptService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/scheduleAi/application/service/ChatgptService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/scheduleAi/domain/AIPromptGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/io/ssafy/luckyweeky/scheduleAi/domain/prompt/AIPromptGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/beans/controller.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/beans/controller.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/beans/model.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/beans/model.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/beans/controller.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/beans/model.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/classes/io/ssafy/luckyweeky/application/user/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/classes/io/ssafy/luckyweeky/dispatcher/ControllerMethod.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/classes/io/ssafy/luckyweeky/domain/user/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/classes/io/ssafy/luckyweeky/domain/user/UserRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/classes/io/ssafy/luckyweeky/domain/user/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/classes/io/ssafy/luckyweeky/domain/user/dto/UserDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/classes/io/ssafy/luckyweeky/infrastructure/config/BeanDefinition.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/classes/io/ssafy/luckyweeky/infrastructure/config/XmlBeanFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/classes/io/ssafy/luckyweeky/infrastructure/config/XmlParser$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/classes/io/ssafy/luckyweeky/infrastructure/config/XmlParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/lib/error_prone_annotations-2.27.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/lib/gson-2.11.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/lib/mybatis-3.5.16.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/lib/mysql-connector-j-8.3.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/lib/protobuf-java-3.25.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/mybatis-config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/LuckyWeeky_server-0.0.1-SNAPSHOT/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/maven/LuckyWeeky_server/LuckyWeeky_server/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/m2e-wtp/web-resources/META-INF/maven/LuckyWeeky_server/LuckyWeeky_server/pom.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2p9165Yc048GDPMiO50GfBpaB2j" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Merging feat/schedule",
+    "last_opened_file_path": "C:/git/project/2411_LuckyWeeky/LuckyWeeky_server/LuckyWeeky_server/pom.xml",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.poratu.idea.plugins.tomcat.setting.TomcatServersConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Tomcat 10.1.30" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 10.1.30" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="OPEN_IN_BROWSER" value="false" />
+      <option name="COMMON_VM_ARGUMENTS" value="-Dfile.encoding=UTF-8 -Dsun.jnu.encoding=UTF-8" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="LuckyWeeky_server:war exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="aa5f40bc-2541-4fd5-8b64-884766df7542" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="10756" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="LuckyWeeky_server:war exploded" />
+        </option>
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c2e55f1e-52b8-4f6e-b5e6-55ea0a5ceec7" name="Changes" comment="" />
+      <created>1732163301124</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732163301124</updated>
+      <workItem from="1732163305757" duration="635000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

@@ -4,4 +4,6 @@
     <bean class="io.ssafy.luckyweeky.user.application.service.UserService" id="userService"/>
     <bean class="io.ssafy.luckyweeky.schedule.infrastructure.repository.ScheduleRepository" id="scheduleRepository"/>
     <bean class="io.ssafy.luckyweeky.schedule.application.service.ScheduleService" id="scheduleService"/>
+    <bean class="io.ssafy.luckyweeky.scheduleAi.application.service.ChatgptService" id="chatgptService"/>
+    <bean class="io.ssafy.luckyweeky.scheduleAi.application.service.ScheduleAiService" id="scheduleAiService" />
 </beans>

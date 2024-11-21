@@ -36,7 +36,6 @@ public class ScheduleController implements Controller {
     private void addSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
         // 요청 본문에서 JSON 데이터를 파싱
         JsonObject jsonObject = RequestJsonParser.getInstance().parseFromBody(request.getReader());
-        jsonObject.addProperty("userId","514403967703191552");
         ScheduleDto scheduleDto = JsonObjectToScheduleDto.getInstance().convert(jsonObject);
         if(scheduleDto==null){
             throw new IllegalArgumentException("request body is invalid");
