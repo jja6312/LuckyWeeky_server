@@ -1,20 +1,24 @@
+
+# Ignore target directories
+/target/
+/**/target/
+
+# IntelliJ IDEA
 .idea/
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### IntelliJ IDEA ###
-.idea/misc.xml
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
-*.iml
+/*.iml
 *.ipr
+*.iws
 
-### Eclipse ###
+
+
+# Exclude specific IDEA settings explicitly if needed
+!.idea/misc.xml
+!.idea/modules.xml
+!.idea/jarRepositories.xml
+!.idea/compiler.xml
+!.idea/libraries/
+
+# Eclipse
 .apt_generated
 .classpath
 .factorypath
@@ -23,20 +27,22 @@ target/
 .springBeans
 .sts4-cache
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
+# Build directories
+/build/
+/**/build/
+
+# VS Code
 .vscode/
 
-### Mac OS ###
+# macOS system files
 .DS_Store
 
+# Environment files
 src/main/webapp/WEB-INF/.env
