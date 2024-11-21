@@ -1,6 +1,7 @@
 package io.ssafy.luckyweeky.schedule.presentation.controller;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.ssafy.luckyweeky.common.config.XmlBeanFactory;
 import io.ssafy.luckyweeky.common.implement.Controller;
 import io.ssafy.luckyweeky.common.util.parser.RequestJsonParser;
@@ -13,10 +14,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ScheduleController implements Controller {
     private final ScheduleService scheduleService;
-
     public ScheduleController() {
         this.scheduleService =(ScheduleService) XmlBeanFactory.getBean("scheduleService");
     }
@@ -28,6 +33,14 @@ public class ScheduleController implements Controller {
         switch (action){
             case "OqwSjA":{
                 addSchedule(request, response,respJson);
+                break;
+            }
+            case "WJsdDo":{
+                getThisWeekSchedules(request, response,respJson);
+                break;
+            }
+            case "lCSZB":{
+                getSchedulesByDate(request,response,respJson);
                 break;
             }
         }
@@ -43,5 +56,24 @@ public class ScheduleController implements Controller {
         if(!scheduleService.addSchedule(scheduleDto)){
             throw new IllegalArgumentException("schedule register failed");
         }
+    }
+
+    private void getThisWeekSchedules(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
+        LocalDateTime now = LocalDateTime.now();
+        Map<String ,Object> params = new HashMap<>();
+        params.put("userId", 514403967703191552L);
+        params.put("startDate", now.with(DayOfWeek.MONDAY).withHour(0).withMinute(0).withSecond(0));
+        params.put("endDate", now.with(DayOfWeek.SUNDAY).withHour(23).withMinute(59).withSecond(59));
+        respJson.add("schedules", JsonParser.parseString(scheduleService.getSchedulesByDateRange(params).toString()).getAsJsonArray());
+    }
+
+    private void getSchedulesByDate(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException {
+        JsonObject jsonObject = RequestJsonParser.getInstance().parseFromBody(request.getReader());
+        LocalDateTime date = LocalDateTime.parse(jsonObject.get("date").getAsString(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Map<String ,Object> params = new HashMap<>();
+        params.put("userId", 514403967703191552L);
+        params.put("startDate", date.with(DayOfWeek.MONDAY).withHour(0).withMinute(0).withSecond(0));
+        params.put("endDate", date.with(DayOfWeek.SUNDAY).withHour(23).withMinute(59).withSecond(59));
+        respJson.add("schedules", JsonParser.parseString(scheduleService.getSchedulesByDateRange(params).toString()).getAsJsonArray());
     }
 }

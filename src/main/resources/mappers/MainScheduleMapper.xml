@@ -75,4 +75,25 @@
         WHERE main_schedule_id = #{mainScheduleId}
     </delete>
 
+    <!-- MainSchedule 조회 -->
+    <select id="selectMainSchedulesByDateRange" parameterType="Map" resultType="mainScheduleEntity">
+        SELECT
+            main_schedule_id AS mainScheduleId,
+            user_id AS userId,
+            title,
+            start_time AS startTime,
+            end_time AS endTime,
+            color,
+            created_at AS createdAt,
+            updated_at AS updatedAt
+        FROM MainSchedule
+        WHERE
+        user_id = #{userId}
+        AND (
+        (start_time BETWEEN #{startDate} AND #{endDate})
+        OR
+        (end_time BETWEEN #{startDate} AND #{endDate})
+        )
+        ORDER BY start_time ASC
+    </select>
 </mapper>

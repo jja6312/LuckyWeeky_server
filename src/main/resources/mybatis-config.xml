@@ -4,6 +4,7 @@
 <configuration>
     <!-- MyBatis 설정 -->
     <settings>
+<!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
         <!-- Snake 표기법을 Camel 표기법으로 자동 매핑 -->
         <setting name="mapUnderscoreToCamelCase" value="true" />
     </settings>
