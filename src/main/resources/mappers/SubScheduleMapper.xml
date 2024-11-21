@@ -80,4 +80,25 @@
         WHERE sub_schedule_id = #{subScheduleId}
     </delete>
 
+    <!-- SubSchedule 조회 -->
+    <select id="selectSubSchedulesByMainScheduleIdAndDateRange" parameterType="map" resultType="SubScheduleEntity">
+        SELECT
+            sub_schedule_id AS subScheduleId,
+            main_schedule_id AS mainScheduleId,
+            title,
+            description,
+            start_time AS startTime,
+            end_time AS endTime,
+            is_completed AS isCompleted,
+            created_at AS createdAt,
+            updated_at AS updatedAt
+        FROM SubSchedule
+        WHERE
+        main_schedule_id = #{mainScheduleId}
+        AND (
+        (start_time BETWEEN #{startDate} AND #{endDate})
+        OR
+        (end_time BETWEEN #{startDate} AND #{endDate})
+        )
+    </select>
 </mapper>

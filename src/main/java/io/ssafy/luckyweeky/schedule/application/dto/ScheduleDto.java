@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ScheduleDto {
+    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final Long userId;
     private final String mainTitle;
     private final String color;
@@ -19,6 +20,15 @@ public class ScheduleDto {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         this.startTime = LocalDateTime.parse(startTime,formatter);
         this.endTime = LocalDateTime.parse(endTime,formatter);
+        this.subSchedules = subSchedules;
+    }
+
+    public ScheduleDto(String mainTitle, String color, LocalDateTime startTime, LocalDateTime endTime, List<SubScheduleDto> subSchedules) {
+        this.userId = 0L;
+        this.mainTitle = mainTitle;
+        this.color = color;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.subSchedules = subSchedules;
     }
 
@@ -44,5 +54,16 @@ public class ScheduleDto {
 
     public List<SubScheduleDto> getSubSchedules() {
         return subSchedules;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " mainTitle:'" + mainTitle + '\'' +
+                ", color:'" + color + '\'' +
+                ", startTime:'" + startTime.format(FORMATTER) +'\'' +
+                ", endTime:'" + endTime.format(FORMATTER) +'\'' +
+                ", subSchedules:" + subSchedules +
+                '}';
     }
 }
