@@ -1,0 +1,18 @@
+{
+  "family": "luckyweeky-task",
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "image": "law10000hours/luckyweeky-server:latest",
+      "essential": true,
+      "memory": 512,
+      "cpu": 256,
+      "portMappings": [
+        {
+          "containerPort": 80,
+          "hostPort": 80
+        }
+      ]
+    }
+  ]
+}
