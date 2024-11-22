@@ -17,5 +17,6 @@ COPY target/LuckyWeeky_server-0.0.1-SNAPSHOT.war $CATALINA_HOME/webapps/
 # 4. 포트 노출
 EXPOSE 8080
 
+
 # 5. Tomcat 실행 명령어
 CMD ["catalina.sh", "run"]
