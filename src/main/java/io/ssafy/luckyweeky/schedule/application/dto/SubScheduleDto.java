@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class SubScheduleDto {
+    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     private final String title;
     private final String description;
     private final LocalDateTime startTime;
@@ -12,9 +13,15 @@ public class SubScheduleDto {
     public SubScheduleDto(String title, String description, String startTime, String endTime) {
         this.title = title;
         this.description = description;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        this.startTime = LocalDateTime.parse(startTime,formatter);
-        this.endTime = LocalDateTime.parse(endTime,formatter);
+        this.startTime = LocalDateTime.parse(startTime,FORMATTER);
+        this.endTime = LocalDateTime.parse(endTime,FORMATTER);
+    }
+
+    public SubScheduleDto(String title, String description, LocalDateTime startTime, LocalDateTime endTime) {
+        this.title = title;
+        this.description = description;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public String getTitle() {
@@ -31,5 +38,15 @@ public class SubScheduleDto {
 
     public LocalDateTime getEndTime() {
         return endTime;
+    };
+
+    @Override
+    public String toString() {
+        return "{" +
+                "title:'" + title + '\'' +
+                ", description:'" + description + '\'' +
+                ", startTime:'" + startTime.format(FORMATTER) +'\'' +
+                ", endTime:'" + endTime.format(FORMATTER) +'\'' +
+                '}';
     }
 }
