@@ -1,8 +1,12 @@
 package io.ssafy.luckyweeky.user.application.service;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.ssafy.luckyweeky.common.DispatcherServlet;
 import io.ssafy.luckyweeky.common.config.XmlBeanFactory;
+import io.ssafy.luckyweeky.common.infrastructure.provider.JwtTokenProvider;
 import io.ssafy.luckyweeky.user.application.converter.GeneralSignupUserDtoToUserEntityWithSaltConverter;
+import io.ssafy.luckyweeky.user.application.converter.UserEntityToLoginUserDto;
 import io.ssafy.luckyweeky.user.application.converter.UserEntityWithSalt;
 import io.ssafy.luckyweeky.common.infrastructure.s3.S3Fileloader;
 import io.ssafy.luckyweeky.common.util.security.OpenCrypt;
@@ -15,9 +19,14 @@ import jakarta.servlet.http.Part;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 public class UserService {
     private final UserRepository userRepository;
+    // Access Token 유효 시간 (30분)
+    private static final long ACCESS_TOKEN_VALIDITY = 30 * 60 * 1000;
+    // Refresh Token 유효 시간 (7일)
+    private static final long REFRESH_TOKEN_VALIDITY = 7 * 24 * 60 * 60 * 1000;
 
     public UserService() {
         this.userRepository = (UserRepository) XmlBeanFactory.getBean("userRepository");
@@ -37,19 +46,32 @@ public class UserService {
      * 로그인 처리
      *
      * @param loginUser 사용자 정보(email,password)
-     * @return 로그인 성공 시 User 객체 반환, 실패 시 null 반환
+     * @return 로그인 성공 시 access_token, refresh_token담긴 map반환
      */
-    public UserEntity login(LoginUserDto loginUser) {
+    public Map<String, String> login(LoginUserDto loginUser) {
         String salt = userRepository.getUserSalt(loginUser.getEmail());
         UserEntity user = userRepository.findByEmail(loginUser.getEmail());
         if (salt != null && user != null && user.getPasswordHash().equals(OpenCrypt.getEncryptPassword(loginUser.getPassword(), salt))) {
-            return user; // 로그인 성공
+            // Access Token Claims 생성
+            Claims accessClaims = Jwts.claims();
+            accessClaims.put("name", user.getUsername());
+            Claims refreshClaims = Jwts.claims();
+
+            String userId = user.getUserId() + "";
+            // Access Token 생성
+            String accessToken = JwtTokenProvider.getInstance().createToken(userId, accessClaims, ACCESS_TOKEN_VALIDITY);
+            // Refresh Token 생성
+            String refreshToken = JwtTokenProvider.getInstance().createToken(userId, refreshClaims, REFRESH_TOKEN_VALIDITY);
+            return userRepository.updateRefreshToken(user.getUserId(), refreshToken)
+                    ? Map.of("access_token", accessToken, "refresh_token", refreshToken)
+                    : null;
         }
         return null; // 로그인 실패
     }
 
     /**
      * 회원가입 처리
+     *
      * @param generalSignupUser 사용자 회원가입 정보
      * @param filePart          사용자 프로필 이미지정보
      * @return 회원가입 성공 시 true, 실패 시 false
@@ -68,7 +90,7 @@ public class UserService {
                 String extension = (lastDotIndex != -1) ? generalSignupUser.getProfileImageKey().substring(lastDotIndex) : ".jpg";
 
                 // 프로젝트 디렉토리 기준으로 임시 파일 저장 경로 설정
-                String tempDirPath = DispatcherServlet.getWebInfPath()+"/temp";
+                String tempDirPath = DispatcherServlet.getWebInfPath() + "/temp";
                 File tempDir = new File(tempDirPath);
                 if (!tempDir.exists()) {
                     tempDir.mkdirs(); // 디렉토리가 없으면 생성
@@ -96,5 +118,47 @@ public class UserService {
         UserEntity userEntity = result.getUserEntity();
         UserSaltEntity userSaltEntity = new UserSaltEntity(userEntity.getUserId(), salt);
         return userRepository.insertUser(userEntity, userSaltEntity);
+    }
+
+    /**
+     * 사용자 refresh_token무효화
+     *
+     * @param refreshToken
+     */
+    public void invalidateRefreshToken(String refreshToken) {
+        // redis 로직 추가
+        String userId = JwtTokenProvider.getInstance().getSubject(refreshToken);
+        if (userId != null) {
+            userRepository.deleteTokenById(Long.parseLong(userId));
+        }
+    }
+
+    /**
+     * 사용자 tokens 검사 and 생성
+     *
+     * @param refreshToken
+     * @return 유효시 시 새로운access_token, refresh_token
+     *         유효하지 않을 시 null
+     */
+    public Map<String,String> createTokens(String refreshToken) {
+        if (
+                refreshToken == null||
+                !JwtTokenProvider.getInstance().validateToken(refreshToken)||
+                !refreshToken.equals(userRepository.getUserToken(Long.parseLong(JwtTokenProvider.getInstance().getSubject(refreshToken))))
+        ) {
+            return null;
+        }
+        String userId = JwtTokenProvider.getInstance().getSubject(refreshToken);
+        UserEntity user = userRepository.findById(Long.parseLong(userId));
+
+
+        Claims accessClaims = Jwts.claims();
+        accessClaims.put("name", user.getUsername());
+        String newAccessToken =JwtTokenProvider.getInstance().createToken(userId, accessClaims, ACCESS_TOKEN_VALIDITY);
+        String newRefreshToken = JwtTokenProvider.getInstance().createToken(userId, Jwts.claims(), REFRESH_TOKEN_VALIDITY);
+
+        return userRepository.updateRefreshToken(user.getUserId(), newRefreshToken)
+                ? Map.of("access_token", newAccessToken, "refresh_token", newRefreshToken)
+                : null;
     }
 }

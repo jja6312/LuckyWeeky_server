@@ -4,23 +4,23 @@ import com.google.gson.JsonObject;
 import io.ssafy.luckyweeky.common.config.XmlBeanFactory;
 import io.ssafy.luckyweeky.common.implement.Controller;
 import io.ssafy.luckyweeky.common.util.parser.RequestJsonParser;
+import io.ssafy.luckyweeky.common.util.security.CookieUtil;
+import io.ssafy.luckyweeky.common.util.stream.FileHandler;
 import io.ssafy.luckyweeky.common.util.url.RequestUrlPath;
 import io.ssafy.luckyweeky.user.application.dto.GeneralSignupUserDto;
+import io.ssafy.luckyweeky.user.application.dto.LoginUserDto;
 import io.ssafy.luckyweeky.user.application.service.UserService;
-import io.ssafy.luckyweeky.user.application.validator.FileValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
 import java.io.IOException;
-import java.util.UUID;
+import java.util.Map;
 
 public class UserController implements Controller {
     private static final String USER_PART = "user";
     private static final String FILE_PART = "file";
-    private static final String DEFAULT_PROFILE_IMAGE = "profile-images/default.png";
-    private static final String MULTIPART_FORM_DATA = "multipart/form-data";
 
     private final UserService userService;
 
@@ -33,17 +33,25 @@ public class UserController implements Controller {
         String action = RequestUrlPath.getURI(request.getRequestURI())[1];
 
         switch (action){
-            case "RClmJ":{//signup
-                userSignUp(request, response,respJson);
+            case "RClmJ"://signup
+                signUp(request, response,respJson);
                 break;
-            }
+            case "LWyAtd"://login
+                login(request, response,respJson);
+                break;
+            case "TGCOwi":
+                refreshToken(request, response, respJson);
+                break;
+            case "odsQk":
+                logout(request, response, respJson);
+                break;
         }
     }
 
-    public void userSignUp(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
-        JsonObject jsonObject = RequestJsonParser.getInstance().parse(request.getPart(USER_PART));
-        Part filePart = getFilePart(request);
-        String profileImageKey = processFilePart(filePart);
+    public void signUp(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
+        JsonObject jsonObject = RequestJsonParser.getInstance().parse(FileHandler.getFilePart(request,USER_PART));
+        Part filePart = FileHandler.getFilePart(request,FILE_PART);
+        String profileImageKey = FileHandler.processFilePart(filePart);
 
         GeneralSignupUserDto user = new GeneralSignupUserDto(
                 jsonObject.get("email").getAsString(),
@@ -61,32 +69,35 @@ public class UserController implements Controller {
         }
     }
 
-    private Part getFilePart(HttpServletRequest request){
-        try {
-            if (request.getContentType() != null && request.getContentType().startsWith(MULTIPART_FORM_DATA)) {
-                return request.getPart(FILE_PART);
-            }
-            return null;
-        }catch (Exception e){
-            return null;
+    public void login(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
+        JsonObject jsonObject = RequestJsonParser.getInstance().parseFromBody(request.getReader());
+        LoginUserDto loginUserDto = new LoginUserDto(
+                jsonObject.get("email").getAsString(),
+                jsonObject.get("password").getAsString()
+        );
+        Map<String,String> tokens = userService.login(loginUserDto);
+        if(tokens==null){
+            throw new IOException("login fail");
         }
+        respJson.addProperty("access_token", tokens.get("access_token"));
+        CookieUtil.addRefreshTokenCookie(response,tokens.get("refresh_token"));
     }
 
-    private String processFilePart(Part filePart){
-        if (filePart != null && filePart.getSize() > 0) {
-            FileValidator.getInstance().isValid(filePart);
-            String uniqueFileName = UUID.randomUUID() + getExtension(filePart);
-            return "profile-images/" + uniqueFileName;
-        }
-        return DEFAULT_PROFILE_IMAGE;
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
+        String refreshToken = CookieUtil.getRefreshToken(request);
+        Map<String,String> newTokens = userService.createTokens(refreshToken);
+        respJson.addProperty("access_token", newTokens.get("access_token"));
+        CookieUtil.addRefreshTokenCookie(response,newTokens.get("refresh_token"));
     }
-    private String getExtension(Part filePart) {
-        String fileName = filePart.getSubmittedFileName();
-        String fileExtension = "";
-        int lastDotIndex = fileName.lastIndexOf(".");
-        if (lastDotIndex != -1) {
-            fileExtension = fileName.substring(lastDotIndex);
+
+
+    public void logout(HttpServletRequest request, HttpServletResponse response,JsonObject respJson) {
+        // 1. Refresh Token 무효화
+        String refreshToken = CookieUtil.getRefreshToken(request);
+
+        if (refreshToken != null) {
+            userService.invalidateRefreshToken(refreshToken); // Refresh Token 무효화 로직 (예: DB에서 삭제)
         }
-        return fileExtension;
+        CookieUtil.deleteRefreshTokenCookie(response);
     }
 }

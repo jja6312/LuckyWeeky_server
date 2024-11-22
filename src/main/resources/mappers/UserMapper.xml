@@ -36,5 +36,22 @@
         WHERE u.email = #{email}
     </select>
 
+    <!--  사용자 토큰 인스턴트 추가  -->
+    <insert id="insertUserToken" parameterType="long">
+        INSERT INTO usertoken (user_id) VALUES (#{userId})
+    </insert>
 
+    <!--  사용자 토큰 조회  -->
+    <select id="findTokenById" parameterType="long" resultType="string">
+        select token from usertoken where user_id = #{user_id}
+    </select>
+
+    <!--  사용자 토큰 업데이트  -->
+    <update id="updateUserToken" parameterType="map">
+        update usertoken set token = #{token} where user_id = #{userId}
+    </update>
+
+    <update id="deleteTokenById" parameterType="long">
+        update usertoken set token = null where user_id = #{userId}
+    </update>
 </mapper>

@@ -7,6 +7,9 @@ import io.ssafy.luckyweeky.user.domain.repository.UserMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
+import java.io.Serializable;
+import java.util.Map;
+
 public class UserRepository {
     private final SqlSessionFactory sqlSessionFactory;
 
@@ -36,6 +39,7 @@ public class UserRepository {
             UserMapper mapper = session.getMapper(UserMapper.class);
             mapper.insertUser(userEntity);
             mapper.insertUserSalt(userSalt);
+            mapper.insertUserToken(userEntity.getUserId());
             session.commit(); // 트랜잭션 커밋
             return true;
         }catch (RuntimeException e) {
@@ -47,6 +51,34 @@ public class UserRepository {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             UserMapper mapper = session.getMapper(UserMapper.class);
             return mapper.findSaltByEmail(email);
+        }
+    }
+
+    public boolean updateRefreshToken(long userId, String token) {
+        try (SqlSession session = sqlSessionFactory.openSession(false)) {
+            UserMapper mapper = session.getMapper(UserMapper.class);
+            mapper.updateUserToken(Map.of(
+                    "userId",userId,
+                    "token",token
+            ));
+            session.commit();
+            return true;
+        }catch (RuntimeException e) {
+            return false;
+        }
+    }
+
+    public String getUserToken(long userId) {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            UserMapper mapper = session.getMapper(UserMapper.class);
+            return mapper.findTokenById(userId);
+        }
+    }
+
+    public void deleteTokenById(Long userId) {
+        try (SqlSession session = sqlSessionFactory.openSession(false)) {
+            UserMapper mapper = session.getMapper(UserMapper.class);
+            mapper.deleteTokenById(userId);
         }
     }
 }
