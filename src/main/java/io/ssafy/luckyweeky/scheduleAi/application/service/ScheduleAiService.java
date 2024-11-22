@@ -29,4 +29,10 @@ public class ScheduleAiService {
         // ChatGPT 호출
         return chatgptService.createChat(prompt);
     }
+
+    public String generateClovaSchedule(String sttResult) throws IOException {
+        // Clova 결과를 기반으로 프롬프트 생성
+        String generatedPrompt = AIPromptGenerator.generateVoicePrompt(sttResult);
+        return chatgptService.createChat(generatedPrompt);
+    }
 }
