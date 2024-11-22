@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y curl && \
 
 # 3. 프로젝트 WAR 파일 복사
 # Maven 빌드 후 생성된 WAR 파일을 Tomcat의 webapps 디렉토리에 복사
-COPY target/LuckyWeeky_server.war $CATALINA_HOME/webapps/
+COPY target/LuckyWeeky_server-0.0.1-SNAPSHOT.war $CATALINA_HOME/webapps/
 
 # 4. 포트 노출
 EXPOSE 8080
