@@ -8,21 +8,26 @@ import io.ssafy.luckyweeky.common.util.parser.RequestJsonParser;
 import io.ssafy.luckyweeky.common.util.url.RequestUrlPath;
 import io.ssafy.luckyweeky.scheduleAi.application.dto.request.CreateAiScheduleRequestDTO;
 import io.ssafy.luckyweeky.scheduleAi.application.dto.request.ReRequestAiScheduleDTO;
+import io.ssafy.luckyweeky.scheduleAi.application.service.ClovaService;
 import io.ssafy.luckyweeky.scheduleAi.application.service.ScheduleAiService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 
 public class ScheduleAiController implements Controller {
 
     private final ScheduleAiService scheduleAiService;
+    private final ClovaService clovaService;
 
     public ScheduleAiController() {
         this.scheduleAiService = (ScheduleAiService) XmlBeanFactory.getBean("scheduleAiService");
+        this.clovaService = (ClovaService) XmlBeanFactory.getBean("clovaService");
     }
 
     @Override
@@ -39,6 +44,10 @@ public class ScheduleAiController implements Controller {
                     reRequestGenerateSchedule(request, response, respJson);
                     break;
                 }
+                case "DnbDiw": { // 다른 액션 처리
+                    speachToTextClova(request, response, respJson);
+                    break;
+                }
                 default: {
                     throw new IllegalArgumentException("Unsupported action: " + action);
                 }
@@ -48,6 +57,28 @@ public class ScheduleAiController implements Controller {
             respJson.addProperty("error", e.getMessage());
         }
     }
+
+    private void speachToTextClova(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException, ServletException {
+
+        Part audioFile = request.getPart("audioFile");
+        InputStream audioStream = audioFile.getInputStream();
+
+        try {
+            String sttResult = clovaService.callClovaSTT(audioStream); // Naver Clova 호출
+
+            System.out.println("clovaResult: " + sttResult);
+            // 응답 데이터 구성
+            respJson.addProperty("result", "true");
+            respJson.addProperty("text", sttResult);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "STT 처리 중 오류 발생");
+        }
+
+
+    }
+
 
     private void reRequestGenerateSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException {
         // JSON 데이터 파싱

@@ -9,8 +9,5 @@
         <module name="LuckyWeeky_server" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="LuckyWeeky_server" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
