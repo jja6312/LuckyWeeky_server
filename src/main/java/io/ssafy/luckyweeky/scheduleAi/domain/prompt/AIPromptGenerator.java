@@ -41,7 +41,7 @@ public class AIPromptGenerator {
     public static final String FOLLOW_UP_PROMPT_TEMPLATE = "아래 1번 데이터를 기반으로 2번 추가 정보를 반영해서, 3번 json 결과 형식에 맞게 결과를 반환해야해.**\n\n"
             + "1번: %s\n\n"
             + "2번: %s\n\n"
-            + "3번결과:(미사어구 없이 ***json***으로만 응답해야함.: \n\n"+RESULT_TEMPLATE;
+            + "3번결과:(결과는 앞뒤 아무말도 없이 ***json***으로만 응답해야함.: \n\n"+RESULT_TEMPLATE;
 
     /**
      * AnalyticalData 데이터를 기반으로 첫 요청 프롬프트를 생성합니다.
