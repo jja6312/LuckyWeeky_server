@@ -30,6 +30,8 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
+          distribution: 'temurin'
+
         # Maven 빌드를 위한 Java 환경 설정
 
       # 3. Maven 빌드 (테스트 제외)
