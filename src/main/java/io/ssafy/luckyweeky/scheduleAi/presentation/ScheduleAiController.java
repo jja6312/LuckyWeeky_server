@@ -36,7 +36,7 @@ public class ScheduleAiController implements Controller {
                     break;
                 }
                 case "LdslbEd": { // 다른 액션 처리
-//                    reRequestGenerateSchedule(request, response, respJson);
+                    reRequestGenerateSchedule(request, response, respJson);
                     break;
                 }
                 default: {
@@ -49,27 +49,28 @@ public class ScheduleAiController implements Controller {
         }
     }
 
-//    private void reRequestGenerateSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException {
-//        // JSON 데이터 파싱
-//        JsonObject requestData = null;
-//        try (BufferedReader reader = request.getReader()) {
-//            requestData = RequestJsonParser.getInstance().parseFromBody(reader);
-//        };
-//
-//        // DTO 생성
-//        ReRequestAiScheduleDTO reRequestAiScheduleDTO = new ReRequestAiScheduleDTO(
-////                requestData.has("additionalRequest")
-//        );
-//
-//
-//        // 서비스 호출
-//        String aiGeneratedResult = scheduleAiService.generateSchedule(createAiScheduleRequestDTO);
-//        System.out.println("aiGeneratedResult: " + aiGeneratedResult);
-//
-//        // 응답 데이터 구성
-//        respJson.addProperty("result", "true");
-//        respJson.add("schedule", JsonParser.parseString(aiGeneratedResult).getAsJsonObject());
-//    }
+    private void reRequestGenerateSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException {
+        // JSON 데이터 파싱
+        JsonObject requestData = null;
+        try (BufferedReader reader = request.getReader()) {
+            requestData = RequestJsonParser.getInstance().parseFromBody(reader);
+        }
+
+        // validation
+        String newAdditionalRequest = requestData.get("newAdditionalRequest").getAsString();
+        String originSchedule = requestData.get("originSchedule").getAsString();
+        if(originSchedule == null ||  newAdditionalRequest == null) throw new NullPointerException("R01");
+
+        // DTO 생성
+        ReRequestAiScheduleDTO reRequestAiScheduleDTO = new ReRequestAiScheduleDTO(originSchedule, newAdditionalRequest);
+
+        // 서비스 호출
+        String aiReGeneratedResult = scheduleAiService.reGenerateSchedule(reRequestAiScheduleDTO);
+        System.out.println("aiReGeneratedResult: " + aiReGeneratedResult);
+        // 응답 데이터 구성
+        respJson.addProperty("result", "true");
+        respJson.add("schedule", JsonParser.parseString(aiReGeneratedResult).getAsJsonObject());
+    }
 
     private void generateSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException, ServletException {
         // JSON 데이터 파싱

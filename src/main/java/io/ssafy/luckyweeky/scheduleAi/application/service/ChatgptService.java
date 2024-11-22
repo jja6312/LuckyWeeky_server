@@ -55,7 +55,8 @@ public class ChatgptService {
         int estimatedInputTokens = prompt.length() / 4 + AIPromptGenerator.INITIAL_PROMPT_TEMPLATE.length() / 4;
 
         // max_tokens 설정
-        json.put("max_tokens", Math.min(8000 - estimatedInputTokens, 4000)); // 안전 범위 내 설정        json.put("temperature", 1);
+        json.put("max_tokens", Math.min(8000 - estimatedInputTokens, 4000)); // 안전 범위 내 설정
+        json.put("temperature", 0.6);
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"),
