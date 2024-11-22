@@ -3,45 +3,53 @@ package io.ssafy.luckyweeky.scheduleAi.domain.prompt;
 import io.ssafy.luckyweeky.scheduleAi.application.dto.request.CreateAiScheduleRequestDTO;
 import io.ssafy.luckyweeky.scheduleAi.application.dto.request.ReRequestAiScheduleDTO;
 
+import java.time.LocalDateTime;
+
 public class AIPromptGenerator {
+    //=============================== JSON 결과 템플릿 ===========================================
     private static final String RESULT_TEMPLATE = "{\n" +
-            "    \"mainTitle\": String,\n" +
+            "    \"mainTitle\": {주요 목적},\n" +
             "    \"startTime\": String (\"yyyy-MM-ddTHH:mm:ss\"),\n" +
             "    \"endTime\": String (\"yyyy-MM-ddTHH:mm:ss\"),\n" +
             "    \"subSchedules\": [\n" +
             "        {\n" +
-            "            \"title\": 이부분은 특히 아주 **구체적**으로, 다양할수록 좋음.\n" +
+            "            \"title\": {이부분은 특히 아주 **구체적**으로, 다양할수록 좋음.}\n" +
             "            \"startTime\": String (\"yyyy-MM-ddTHH:mm:ss\"),\n" +
             "            \"endTime\": String (\"yyyy-MM-ddTHH:mm:ss\")\n" +
             "        }\n" +
             "    ]\n" +
             "}\n";
+//===============================================================================================
 
+
+    // 1. AI 일정 생성
     public static final String INITIAL_PROMPT_TEMPLATE = "너는 일정계획 전문가이고," +
-            "아래 1번 요청에 정확히 맞는 세부 일정을 계획해야해. 2번 json 결과 형식에 맞게 결과를 반환해야해."+
-            "특히, 일정생성시 1번의 투자가능시간과 추가 요청사항을 충분히 반영해야해.\n\n"
+            "요청에 정확히 맞는 세부 일정을 계획해야해. 2번 json 결과 형식에 맞게, 결과를 반환해야해.\n"
             + "1. 요청: \n"
-            + "시작 날짜: %s\n"
-            + "종료 날짜: %s\n"
-            + "목표(할 일): %s\n"
-            + "투자가능한 시간: %s\n"
-            + "추가 요청사항: %s\n\n"
+            + "시작 날짜: \n"
+            + "종료 날짜: \n"
+            + "목표(할 일): \n"
+            + "투자가능한 시간: \n"
+            + "추가 요청사항: \n\n"
             
             + "2. 결과:(반드시 아래처럼 ***json***으로만 출력해야함.) \n"
             + RESULT_TEMPLATE;
 
-//            + "일정은 MainSchedule과 SubSchedule로 나뉩니다:\n"
-//            + "- MainSchedule: 주요 작업 또는 프로젝트.\n"
-//            + "- SubSchedule: MainSchedule에서 파생된 세부 작업.\n\n"
-//            + "각 일정은 다음 정보를 포함해야 합니다:\n"
-//            + "- MainSchedule: 제목, 시작 시간, 종료 시간.\n"
-//            + "- SubSchedule: 제목, 설명, 시작 시간, 종료 시간, 완료 여부.\n\n"
-//            + "일정을 생성할 때 가능한 시간과 추가 요청사항을 반영해주세요.";
-
+    // 2. AI 일정 재요청
     public static final String FOLLOW_UP_PROMPT_TEMPLATE = "아래 1번 데이터를 기반으로 2번 추가 정보를 반영해서, 3번 json 결과 형식에 맞게 결과를 반환해야해.**\n\n"
             + "1번: %s\n\n"
             + "2번: %s\n\n"
             + "3번결과:(결과는 앞뒤 아무말도 없이 ***json***으로만 응답해야함.: \n\n"+RESULT_TEMPLATE;
+
+
+    // 3. AI 음성 일정 생성
+    public static final String CLOVA_INITIAL_PROMPT_TEMPLATE = "너는 일정계획 전문가이고," +
+            "아래 1번 요청에 정확히 맞는 세부 일정을 계획해야해. 만약 정보가 부족하거나, 맥락이 이상하다면 맥락을 유추해서 정확한정보를 반환해야해.특히 2번 json 결과 형식에 맞게 결과를 반환해야해."+
+            "유의할점은, 일정생성시 1번의 투자가능시간과 추가 요청사항을 충분히 반영해야해. 아무리 추상적이어도 맥락을 이해하고 구체적인 정보를 줘야해.\n\n"
+            +"그리고 구체적인 날짜정보가 없다면, "+ LocalDateTime.now() +"부터 1주일이야. \n\n"
+            + "1. 요청: %s\n"
+            + "2. 결과:(결과는 앞뒤 아무말도 없이 반드시 아래처럼 ***json***으로만 출력해야함.) \n"
+            + RESULT_TEMPLATE;
 
     /**
      * AnalyticalData 데이터를 기반으로 첫 요청 프롬프트를 생성합니다.
@@ -69,6 +77,20 @@ public class AIPromptGenerator {
                 data.getOriginalPrompt(),
                 data.getNewAdditionalRequest()
         );
+    }
+
+    public static String generateVoicePrompt(String sttResult) {
+        validateData(sttResult);
+        return String.format(
+                CLOVA_INITIAL_PROMPT_TEMPLATE,
+                sttResult
+        );
+    }
+
+    private static void validateData(String sttResult) {
+        if (sttResult == null) {
+            throw new NullPointerException("A03");
+        }
     }
 
 
