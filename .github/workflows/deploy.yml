@@ -58,24 +58,27 @@ jobs:
       # 7. Docker 이미지 빌드 및 푸시
       - name: Build and Push Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/luckyweeky-server:latest .
-          docker push ${{ secrets.DOCKER_USERNAME }}/luckyweeky-server:latest
-        # Maven 빌드 결과(WAR 파일)를 포함하는 Docker 이미지를 빌드하고 Docker Hub에 푸시합니다.
+          TAG=${{ github.sha }}
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/luckyweeky-server:${TAG} .
+          docker push ${{ secrets.DOCKER_USERNAME }}/luckyweeky-server:${TAG}
 
+      - name: Update Task Definition
+        run: |
+          TAG=${{ github.sha }}
+          sed 's|law10000hours/luckyweeky-server:latest|law10000hours/luckyweeky-server:'"${TAG}"'|g' ecs-task-definition.json > ecs-task-definition-updated.json
       # 8. AWS ECS 태스크 정의 등록
       - name: Register Task Definition
+        id: register_task_definition
         run: |
-          aws ecs register-task-definition --cli-input-json file://ecs-task-definition.json
+          TASK_DEF_ARN=$(aws ecs register-task-definition --cli-input-json file://ecs-task-definition-updated.json --query 'taskDefinition.taskDefinitionArn' --output text)
+          echo "##[set-output name=TASK_DEF_ARN;]$TASK_DEF_ARN"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        # ECS에서 실행할 태스크 정의를 업데이트합니다.
 
-      # 9. AWS ECS 서비스 업데이트
       - name: Update ECS Service
         run: |
-          aws ecs update-service --cluster $ECS_CLUSTER --service $SERVICE_NAME --force-new-deployment --region ${{ secrets.REGION }}
+          aws ecs update-service --cluster $ECS_CLUSTER --service $SERVICE_NAME --task-definition ${{ steps.register_task_definition.outputs.TASK_DEF_ARN }} --region ${{ secrets.REGION }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        # ECS 서비스에 새로 빌드된 Docker 이미지를 배포합니다.
