@@ -8,7 +8,7 @@ public class CookieUtil {
     public static String getRefreshToken(HttpServletRequest request) {
         if (request.getCookies() != null) {
             for (Cookie cookie : request.getCookies()) {
-                if ("refresh_token".equals(cookie.getName())) {
+                if ("refreshToken".equals(cookie.getName())) {
                     return cookie.getValue();
                 }
             }
@@ -17,7 +17,7 @@ public class CookieUtil {
     }
 
     public static void addRefreshTokenCookie(HttpServletResponse response, String refreshToken) {
-        Cookie cookie = new Cookie("refresh_token", refreshToken);
+        Cookie cookie = new Cookie("refreshToken", refreshToken);
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setMaxAge(7 * 24 * 60 * 60); // 7일
@@ -25,7 +25,7 @@ public class CookieUtil {
     }
 
     public static void deleteRefreshTokenCookie(HttpServletResponse response) {
-        Cookie cookie = new Cookie("refresh_token", null);
+        Cookie cookie = new Cookie("refreshToken", null);
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setMaxAge(0); // 즉시 만료

@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import io.ssafy.luckyweeky.common.DispatcherServlet;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.io.File;
 import java.security.Key;
@@ -80,5 +81,19 @@ public class JwtTokenProvider {
      */
     public String getSubject(String token) {
         return getClaims(token).getSubject();
+    }
+
+    /**
+     * request header에서 Authorization 값 추출
+     *
+     * @param request HttpServletRequest
+     * @return JWT 토큰
+     */
+    public String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7); // "Bearer " 이후의 토큰 값 추출
+        }
+        return null;
     }
 }

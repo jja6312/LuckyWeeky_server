@@ -63,7 +63,7 @@ public class UserService {
             // Refresh Token 생성
             String refreshToken = JwtTokenProvider.getInstance().createToken(userId, refreshClaims, REFRESH_TOKEN_VALIDITY);
             return userRepository.updateRefreshToken(user.getUserId(), refreshToken)
-                    ? Map.of("access_token", accessToken, "refresh_token", refreshToken)
+                    ? Map.of("accessToken", accessToken, "refreshToken", refreshToken)
                     : null;
         }
         return null; // 로그인 실패
@@ -158,7 +158,7 @@ public class UserService {
         String newRefreshToken = JwtTokenProvider.getInstance().createToken(userId, Jwts.claims(), REFRESH_TOKEN_VALIDITY);
 
         return userRepository.updateRefreshToken(user.getUserId(), newRefreshToken)
-                ? Map.of("access_token", newAccessToken, "refresh_token", newRefreshToken)
+                ? Map.of("accessToken", newAccessToken, "refreshToken", newRefreshToken)
                 : null;
     }
 }

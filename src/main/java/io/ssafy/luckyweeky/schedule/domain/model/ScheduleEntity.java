@@ -6,7 +6,7 @@ public class ScheduleEntity {
     private final MainScheduleEntity mainScheduleEntity;
     private final List<SubScheduleEntity> subScheduleEntityList;
 
-    public ScheduleEntity(final MainScheduleEntity mainScheduleEntity, final List<SubScheduleEntity> subScheduleEntityList) {
+    public ScheduleEntity(MainScheduleEntity mainScheduleEntity, List<SubScheduleEntity> subScheduleEntityList) {
         this.mainScheduleEntity = mainScheduleEntity;
         this.subScheduleEntityList = subScheduleEntityList;
     }

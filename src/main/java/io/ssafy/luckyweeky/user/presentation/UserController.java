@@ -79,15 +79,15 @@ public class UserController implements Controller {
         if(tokens==null){
             throw new IOException("login fail");
         }
-        respJson.addProperty("access_token", tokens.get("access_token"));
-        CookieUtil.addRefreshTokenCookie(response,tokens.get("refresh_token"));
+        respJson.addProperty("accessToken", tokens.get("accessToken"));
+        CookieUtil.addRefreshTokenCookie(response,tokens.get("refreshToken"));
     }
 
     public void refreshToken(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
         String refreshToken = CookieUtil.getRefreshToken(request);
         Map<String,String> newTokens = userService.createTokens(refreshToken);
-        respJson.addProperty("access_token", newTokens.get("access_token"));
-        CookieUtil.addRefreshTokenCookie(response,newTokens.get("refresh_token"));
+        respJson.addProperty("accessToken", newTokens.get("accessToken"));
+        CookieUtil.addRefreshTokenCookie(response,newTokens.get("refreshToken"));
     }
 
 

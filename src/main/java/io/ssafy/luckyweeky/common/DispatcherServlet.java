@@ -63,7 +63,6 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("post");
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json;charset=UTF-8");
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {// CLOVA STT를 위한 설정

@@ -24,11 +24,11 @@ public class CORSFilter implements Filter {
 
         // 요청의 Origin 가져오기
         String origin = httpRequest.getHeader("Origin");
-
         // Origin이 허용된 목록에 있는지 확인
         if (origin == null || !ALLOWED_ORIGINS.contains(origin)) {
             httpResponse.setStatus(HttpServletResponse.SC_OK);
             httpResponse.getWriter().write("{\"error\": \"허용되지 않은 요청입니다\"}");
+            return;
         }
         // CORS 헤더 설정
         httpResponse.setHeader("Access-Control-Allow-Origin", origin);
