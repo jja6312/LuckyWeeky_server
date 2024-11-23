@@ -1,5 +1,6 @@
 {
   "family": "luckyweeky-task",
+  "enableExecuteCommand": true,
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "256",

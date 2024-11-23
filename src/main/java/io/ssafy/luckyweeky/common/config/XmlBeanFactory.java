@@ -15,6 +15,7 @@ public class XmlBeanFactory {
 
     private void registerBean(BeanDefinition definition) throws Exception {
         Constructor<?> constructor = Class.forName(definition.getClassName()).getConstructor();
+        System.out.println("constructor.getName():"+constructor.getName());
         Object bean = constructor.newInstance();
         beans.put(definition.getId(), bean);
     }
