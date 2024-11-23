@@ -68,6 +68,7 @@ jobs:
           # taskRoleArn 제거
           sed -i '/"taskRoleArn":/d' ecs-task-definition.json
 
+      # 10. Register Task Definition
       - name: Register Task Definition
         id: register_task_definition
         run: |
@@ -77,15 +78,26 @@ jobs:
             --output text \
             --region $REGION)
           echo "TASK_DEF_ARN=$TASK_DEF_ARN" >> $GITHUB_ENV
+          echo "Registered Task Definition: $TASK_DEF_ARN"
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           REGION: ${{ secrets.REGION }}
 
+      # 11. Debug TASK_DEF_ARN
+      - name: Debug TASK_DEF_ARN
+        run: |
+          echo "TASK_DEF_ARN=${{ env.TASK_DEF_ARN }}"
 
+      # 12. Update ECS Service
       - name: Update ECS Service
         run: |
-          aws ecs update-service --cluster $ECS_CLUSTER --service $SERVICE_NAME --task-definition ${{ steps.register_task_definition.outputs.TASK_DEF_ARN }} --region ${{ secrets.REGION }}
+          aws ecs update-service \
+            --cluster $ECS_CLUSTER \
+            --service $SERVICE_NAME \
+            --task-definition $TASK_DEF_ARN \
+            --region ${{ secrets.REGION }}
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          TASK_DEF_ARN: ${{ env.TASK_DEF_ARN }}
