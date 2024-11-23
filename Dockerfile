@@ -6,7 +6,7 @@ ENV JAVA_OPTS="-Duser.timezone=Asia/Seoul"
 
 
 # 3. Copy Maven build artifact to Tomcat webapps
-COPY target/LuckyWeeky_server-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/
+COPY target/ROOT.war /usr/local/tomcat/webapps/
 
 # 4. Expose application port
 EXPOSE 8080
