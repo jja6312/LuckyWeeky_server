@@ -16,68 +16,41 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. GitHub 저장소 코드 가져오기
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # 2. Java 17 설치
       - name: Set up Java
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
 
-      # 3. Maven 빌드 (테스트 제외)
       - name: Build with Maven (Skip Tests)
         run: mvn clean package -DskipTests
 
-      # 4. 빌드 결과 확인
       - name: Check WAR File
         run: ls -al target/
 
-      # 5. Docker Buildx 설정
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # 6. Docker Hub 로그인
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      # 7. Docker 이미지 빌드 및 푸시
       - name: Build and Push Docker Image
         run: |
-          TAG=${{ github.sha }} # 최신 커밋 SHA
+          TAG=${{ github.sha }}
           IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/luckyweeky-server
-          # Docker 이미지 빌드
           docker build -t $IMAGE_NAME:${TAG} -t $IMAGE_NAME:latest .
-          # 태그 별로 푸시
           docker push $IMAGE_NAME:${TAG}
           docker push $IMAGE_NAME:latest
 
-      # 8. Docker 이미지 태그 검증
-      - name: Verify Docker Image Tags
-        run: |
-          docker images ${{ secrets.DOCKER_USERNAME }}/luckyweeky-server --format "{{.Tag}}" | grep -q latest || echo "Error: 'latest' tag not found."
-          echo "Docker tags verified successfully."
-
-      # 9. AWS Secrets Manager에서 환경 변수 가져오기
-      - name: Fetch Secrets from AWS Secrets Manager
-        id: fetch_secrets
-        run: |
-          secrets=$(aws secretsmanager get-secret-value --secret-id luckyweeky-env-vars --query 'SecretString' --output text --region ${{ secrets.REGION }})
-          echo $secrets > secrets.json
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      # 10. 환경 변수 주입 후 Task Definition 업데이트
       - name: Update Task Definition
         run: |
-          TAG=${{ github.sha }} # 커밋 SHA 태그
-          sed -E 's|***/luckyweeky-server:\(latest\|[a-f0-9]+\)|***/luckyweeky-server:latest|g' ecs-task-definition.json > ecs-task-definition-updated.json
+          TAG=${{ github.sha }}
+          sed -E 's|***/luckyweeky-server:(latest|[a-f0-9]{40})|***/luckyweeky-server:latest|g' ecs-task-definition.json > ecs-task-definition-updated.json
           sed -i '/"taskRoleArn":/d' ecs-task-definition-updated.json
 
-      # 11. Register Task Definition
       - name: Register Task Definition
         id: register_task_definition
         run: |
@@ -87,11 +60,7 @@ jobs:
             --output text \
             --region $REGION)
           echo "TASK_DEF_ARN=$TASK_DEF_ARN" >> $GITHUB_ENV
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # 12. Update ECS Service
       - name: Update ECS Service
         run: |
           aws ecs update-service \
@@ -99,17 +68,3 @@ jobs:
             --service $SERVICE_NAME \
             --task-definition $TASK_DEF_ARN \
             --region ${{ secrets.REGION }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      # 13. ECS 서비스 상태 확인 및 디버깅
-      - name: Describe ECS Service
-        run: |
-          aws ecs describe-services \
-            --cluster $ECS_CLUSTER \
-            --services $SERVICE_NAME \
-            --region ${{ secrets.REGION }}
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
