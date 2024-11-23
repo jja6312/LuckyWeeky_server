@@ -64,9 +64,10 @@ jobs:
       - name: Update Task Definition
         run: |
           TAG=${{ github.sha }}
-          env_vars=$(cat secrets.json | jq -r 'to_entries | map("\(.key)=\(.value)") | join("\n")')
-          echo "$env_vars" > env.list
-          sed 's|law10000hours/luckyweeky-server:latest|law10000hours/luckyweeky-server:'"${TAG}"'|g' ecs-task-definition.json > ecs-task-definition-updated.json
+          sed 's|law10000hours/luckyweeky-server:${TAG}|law10000hours/luckyweeky-server:'"${TAG}"'|g' ecs-task-definition.json > ecs-task-definition-updated.json
+          # taskRoleArn 제거
+          sed -i '/"taskRoleArn":/d' ecs-task-definition-updated.json
+
       - name: Register Task Definition
         id: register_task_definition
         run: |
