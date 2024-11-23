@@ -7,6 +7,7 @@ ENV JAVA_OPTS="-Duser.timezone=Asia/Seoul"
 
 # 3. Copy Maven build artifact to Tomcat webapps
 COPY target/ROOT.war /usr/local/tomcat/webapps/
+COPY .env /usr/local/tomcat/webapps/ROOT/WEB-INF/.env
 
 # 4. Expose application port
 EXPOSE 8080
