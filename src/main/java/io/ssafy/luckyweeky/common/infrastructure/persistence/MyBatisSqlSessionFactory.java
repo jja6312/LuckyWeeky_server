@@ -13,6 +13,9 @@ public class MyBatisSqlSessionFactory {
 
     static {
         try {
+            // 드라이버 명시적 로드
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
             // 1. 환경 변수에서 값을 가져옴
             String url = System.getenv("DB_URL");
             String username = System.getenv("DB_USERNAME");
@@ -39,6 +42,8 @@ public class MyBatisSqlSessionFactory {
             throw new RuntimeException("Failed to initialize SqlSessionFactory due to IO error.", e);
         } catch (IllegalStateException e) {
             throw new RuntimeException("Failed to initialize SqlSessionFactory due to missing environment variables.", e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL Driver not found. Ensure that the MySQL Connector/J is included in the classpath.", e);
         }
     }
 
