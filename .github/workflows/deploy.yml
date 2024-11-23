@@ -48,7 +48,7 @@ jobs:
       - name: Update Task Definition
         run: |
           TAG=${{ github.sha }}
-          sed -E 's|***/luckyweeky-server:(latest|[a-f0-9]{40})|***/luckyweeky-server:latest|g' ecs-task-definition.json > ecs-task-definition-updated.json
+          sed -E 's|"image": "law10000hours/luckyweeky-server:latest"|"image": "law10000hours/luckyweeky-server:'"${TAG}"'"|g' ecs-task-definition.json > ecs-task-definition-updated.json
           sed -i '/"taskRoleArn":/d' ecs-task-definition-updated.json
 
       - name: Register Task Definition
