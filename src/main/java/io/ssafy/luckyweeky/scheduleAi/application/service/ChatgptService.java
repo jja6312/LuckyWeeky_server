@@ -1,13 +1,10 @@
 package io.ssafy.luckyweeky.scheduleAi.application.service;
 
-import io.github.cdimascio.dotenv.Dotenv;
-import io.ssafy.luckyweeky.common.DispatcherServlet;
 import io.ssafy.luckyweeky.scheduleAi.domain.prompt.AIPromptGenerator;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -17,14 +14,17 @@ public class ChatgptService {
     private final OkHttpClient client;
 
     public ChatgptService() {
-        // 환경 변수 로드
-        Dotenv dotenv = Dotenv.configure()
-                .directory(DispatcherServlet.getWebInfPath() + File.separator)
-                .filename(".env")
-                .load();
+        // 시스템 환경 변수에서 API 키와 엔드포인트 가져오기
+        this.OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
+        this.GPT_API_ENDPOINT = System.getenv("GPT_API_ENDPOINT");
 
-        this.OPENAI_API_KEY = dotenv.get("OPENAI_API_KEY");
-        this.GPT_API_ENDPOINT = dotenv.get("GPT_API_ENDPOINT");
+        if (this.OPENAI_API_KEY == null || this.OPENAI_API_KEY.isEmpty()) {
+            throw new IllegalStateException("환경 변수 'OPENAI_API_KEY'가 설정되지 않았습니다.");
+        }
+
+        if (this.GPT_API_ENDPOINT == null || this.GPT_API_ENDPOINT.isEmpty()) {
+            throw new IllegalStateException("환경 변수 'GPT_API_ENDPOINT'가 설정되지 않았습니다.");
+        }
 
         // OkHttpClient 초기화
         this.client = new OkHttpClient.Builder()
@@ -36,10 +36,6 @@ public class ChatgptService {
 
     // ChatGPT API 호출
     public String createChat(String prompt) throws IOException {
-        if (OPENAI_API_KEY == null || OPENAI_API_KEY.isEmpty()) {
-            throw new IllegalStateException("API key is not set.");
-        }
-
         // JSON 요청 생성
         JSONObject json = new JSONObject();
         json.put("model", "gpt-4"); // 변경된 모델 이름
@@ -51,6 +47,7 @@ public class ChatgptService {
                         .put("role", "user")
                         .put("content", prompt))
         );
+
         // 입력 토큰 수 추정값
         int estimatedInputTokens = prompt.length() / 4 + AIPromptGenerator.INITIAL_PROMPT_TEMPLATE.length() / 4;
 
