@@ -64,16 +64,16 @@ jobs:
       - name: Update Task Definition
         run: |
           TAG=${{ github.sha }}
-          sed 's|law10000hours/luckyweeky-server:${TAG}|law10000hours/luckyweeky-server:'"${TAG}"'|g' ecs-task-definition.json > ecs-task-definition.json
+          sed 's|law10000hours/luckyweeky-server:latest|law10000hours/luckyweeky-server:'"${TAG}"'|g' ecs-task-definition.json > ecs-task-definition-updated.json
           # taskRoleArn 제거
-          sed -i '/"taskRoleArn":/d' ecs-task-definition.json
+          sed -i '/"taskRoleArn":/d' ecs-task-definition-updated.json
 
       # 10. Register Task Definition
       - name: Register Task Definition
         id: register_task_definition
         run: |
           TASK_DEF_ARN=$(aws ecs register-task-definition \
-            --cli-input-json file://ecs-task-definition.json \
+            --cli-input-json file://ecs-task-definition-updated.json \
             --query 'taskDefinition.taskDefinitionArn' \
             --output text \
             --region $REGION)
@@ -88,6 +88,8 @@ jobs:
       - name: Debug TASK_DEF_ARN
         run: |
           echo "TASK_DEF_ARN=${{ env.TASK_DEF_ARN }}"
+        env:
+          TASK_DEF_ARN: ${{ env.TASK_DEF_ARN }}
 
       # 12. Update ECS Service
       - name: Update ECS Service
