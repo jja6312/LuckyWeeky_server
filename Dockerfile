@@ -36,3 +36,4 @@ CMD ["catalina.sh", "run"]
 #
 ## 5. Tomcat 실행 명령어
 #CMD ["catalina.sh", "run"]
+
