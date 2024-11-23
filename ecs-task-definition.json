@@ -1,6 +1,5 @@
 {
   "family": "luckyweeky-task",
-  "enableExecuteCommand": true,
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "256",
@@ -13,8 +12,7 @@
       "essential": true,
       "portMappings": [
         {
-          "containerPort": 8080,
-          "hostPort": 8080
+          "containerPort": 8080
         }
       ]
     }
