@@ -11,7 +11,6 @@ COPY target/LuckyWeeky_server-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/
 # 4. Expose application port
 EXPOSE 8080
 
-
 # 5. Start Tomcat
 CMD ["catalina.sh", "run"]
 
