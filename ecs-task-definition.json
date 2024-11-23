@@ -14,7 +14,65 @@
         {
           "containerPort": 8080
         }
-      ]
+      ],
+      "secrets": [
+        {
+          "name": "DB_URL",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:DB_URL"
+        },
+        {
+          "name": "DB_USERNAME",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:DB_USERNAME"
+        },
+        {
+          "name": "DB_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:DB_PASSWORD"
+        },
+        {
+          "name": "AWS_ACCESS_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:AWS_ACCESS_KEY"
+        },
+        {
+          "name": "AWS_SECRET_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:AWS_SECRET_KEY"
+        },
+        {
+          "name": "BUCKET_NAME",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:BUCKET_NAME"
+        },
+        {
+          "name": "MACHINE_ID",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:MACHINE_ID"
+        },
+        {
+          "name": "OPENAI_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:OPENAI_API_KEY"
+        },
+        {
+          "name": "GPT_API_ENDPOINT",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:GPT_API_ENDPOINT"
+        },
+        {
+          "name": "CLOVA_API_URL",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:CLOVA_API_URL"
+        },
+        {
+          "name": "CLOVA_ACCESS_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:CLOVA_ACCESS_KEY"
+        },
+        {
+          "name": "CLOVA_SECRET_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2:CLOVA_SECRET_KEY"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/luckyweeky",
+          "awslogs-region": "ap-northeast-2",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
     }
   ]
 }
