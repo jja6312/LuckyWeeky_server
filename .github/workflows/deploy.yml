@@ -38,9 +38,13 @@ jobs:
         run: |
           TAG=${{ github.sha }}
           IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/luckyweeky-server
-          docker build -t $IMAGE_NAME:${TAG} -t $IMAGE_NAME:latest .
+          docker build -t $IMAGE_NAME:${TAG} -t $IMAGE_NAME:latest \
+            --build-arg DB_URL="jdbc:mysql://luckyweeky-dev-cluster.cluster-clqu8mwc6btg.ap-northeast-2.rds.amazonaws.com:3306/luckyweekydb" \
+            --build-arg DB_USERNAME="${{ secrets.DB_USERNAME }}" \
+            --build-arg DB_PASSWORD="${{ secrets.DB_PASSWORD }}" .
           docker push $IMAGE_NAME:${TAG}
           docker push $IMAGE_NAME:latest
+      
 
       - name: Update Task Definition
         run: |
