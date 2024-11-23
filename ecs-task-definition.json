@@ -8,7 +8,7 @@
   "containerDefinitions": [
     {
       "name": "app",
-      "image": "law10000hours/luckyweeky-server:${TAG}",
+      "image": "law10000hours/luckyweeky-server:latest",
       "essential": true,
       "portMappings": [
         {
