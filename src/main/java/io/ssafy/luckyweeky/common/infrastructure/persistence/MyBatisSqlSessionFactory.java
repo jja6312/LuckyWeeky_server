@@ -17,20 +17,20 @@ public class MyBatisSqlSessionFactory {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // 1. 환경 변수에서 값을 가져옴
-            String url = System.getenv("DB_URL");
-            String username = System.getenv("DB_USERNAME");
-            String password = System.getenv("DB_PASSWORD");
+            String DB_URL = System.getenv("DB_URL");
+            String DB_USERNAME = System.getenv("DB_USERNAME");
+            String DB_PASSWORD = System.getenv("DB_PASSWORD");
 
             // 2. 유효성 검사
-            if (url == null || username == null || password == null) {
+            if (DB_URL == null || DB_USERNAME == null || DB_PASSWORD == null) {
                 throw new IllegalStateException("Required environment variables are missing. Check DB_URL, DB_USERNAME, DB_PASSWORD.");
             }
 
             // 3. Properties 객체에 환경 변수 추가
             Properties props = new Properties();
-            props.setProperty("url", url);
-            props.setProperty("username", username);
-            props.setProperty("password", password);
+            props.setProperty("DB_URL", DB_URL);
+            props.setProperty("DB_USERNAME", DB_USERNAME);
+            props.setProperty("DB_PASSWORD", DB_PASSWORD);
 
             // 4. MyBatis 설정 파일 읽기
             String resource = "mybatis-config.xml"; // 설정 파일 경로
