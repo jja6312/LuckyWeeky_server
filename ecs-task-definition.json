@@ -15,6 +15,11 @@
           "containerPort": 8080
         }
       ],
+      "environment": [
+        {"name": "DB_URL", "value": "jdbc:mysql://luckyweeky-dev-cluster.cluster-clqu8mwc6btg.ap-northeast-2.rds.amazonaws.com:3306/luckyweekydb"},
+        {"name": "DB_USERNAME", "value": "luckyweeky"},
+        {"name": "DB_PASSWORD", "value": "rmsdbr124!"}
+      ],
 
       "logConfiguration": {
         "logDriver": "awslogs",
