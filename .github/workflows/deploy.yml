@@ -46,9 +46,11 @@ jobs:
       # 7. Docker 이미지 빌드 및 푸시
       - name: Build and Push Docker Image
         run: |
-          TAG=${{ github.sha }}
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/luckyweeky-server:${TAG} .
-          docker push ${{ secrets.DOCKER_USERNAME }}/luckyweeky-server:${TAG}
+          TAG=${{ github.sha }} # 변경: 커밋 해시를 Docker 이미지 태그로 설정
+          IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/luckyweeky-server # 변경: 태그와 함께 `latest`도 추가
+          docker build -t $IMAGE_NAME:${TAG} -t $IMAGE_NAME:latest . # 변경: 최신 `latest` 태그 추가
+          docker push $IMAGE_NAME:${TAG}
+          docker push $IMAGE_NAME:latest # 변경: `latest` 태그를 추가로 푸시
 
       # 8. AWS Secrets Manager에서 환경 변수 가져오기
       - name: Fetch Secrets from AWS Secrets Manager
@@ -63,10 +65,10 @@ jobs:
       # 9. 환경 변수 주입 후 Task Definition 업데이트
       - name: Update Task Definition
         run: |
-          TAG=${{ github.sha }}
+          TAG=${{ github.sha }} # 변경: Docker 이미지의 커밋 해시 태그를 태스크 정의에 반영
           sed 's|law10000hours/luckyweeky-server:latest|law10000hours/luckyweeky-server:'"${TAG}"'|g' ecs-task-definition.json > ecs-task-definition-updated.json
-          # taskRoleArn 제거
-          sed -i '/"taskRoleArn":/d' ecs-task-definition-updated.json
+          sed -i '/"taskRoleArn":/d' ecs-task-definition-updated.json # 변경: `taskRoleArn` 제거 (필요 없는 경우 대비)
+    
 
       # 10. Register Task Definition
       - name: Register Task Definition
@@ -103,3 +105,10 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           TASK_DEF_ARN: ${{ env.TASK_DEF_ARN }}
+# 13. ECS 서비스 상태 확인 및 디버깅 (추가)
+      - name: Describe ECS Service
+        run: |
+         aws ecs describe-services \
+          --cluster $ECS_CLUSTER \
+          --services $SERVICE_NAME \
+          --region ${{ secrets.REGION }}
