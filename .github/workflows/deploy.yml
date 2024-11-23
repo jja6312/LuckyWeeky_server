@@ -108,7 +108,11 @@ jobs:
 # 13. ECS 서비스 상태 확인 및 디버깅 (추가)
       - name: Describe ECS Service
         run: |
-         aws ecs describe-services \
-          --cluster $ECS_CLUSTER \
-          --services $SERVICE_NAME \
-          --region ${{ secrets.REGION }}
+          aws ecs describe-services \
+            --cluster $ECS_CLUSTER \
+            --services $SERVICE_NAME \
+            --region ${{ secrets.REGION }}
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          REGION: ${{ secrets.REGION }}
