@@ -51,6 +51,7 @@ public class UserService {
     public Map<String, String> login(LoginUserDto loginUser) {
         String salt = userRepository.getUserSalt(loginUser.getEmail());
         UserEntity user = userRepository.findByEmail(loginUser.getEmail());
+
         if (salt != null && user != null && user.getPasswordHash().equals(OpenCrypt.getEncryptPassword(loginUser.getPassword(), salt))) {
             // Access Token Claims 생성
             Claims accessClaims = Jwts.claims();
@@ -62,6 +63,7 @@ public class UserService {
             String accessToken = JwtTokenProvider.getInstance().createToken(userId, accessClaims, ACCESS_TOKEN_VALIDITY);
             // Refresh Token 생성
             String refreshToken = JwtTokenProvider.getInstance().createToken(userId, refreshClaims, REFRESH_TOKEN_VALIDITY);
+
             return userRepository.updateRefreshToken(user.getUserId(), refreshToken)
                     ? Map.of("accessToken", accessToken, "refreshToken", refreshToken)
                     : null;
@@ -117,6 +119,11 @@ public class UserService {
         String salt = result.getSalt();
         UserEntity userEntity = result.getUserEntity();
         UserSaltEntity userSaltEntity = new UserSaltEntity(userEntity.getUserId(), salt);
+
+        System.out.println(salt);
+        System.out.println(userEntity);
+        System.out.println(userSaltEntity);
+
         return userRepository.insertUser(userEntity, userSaltEntity);
     }
 

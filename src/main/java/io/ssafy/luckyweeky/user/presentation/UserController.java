@@ -79,6 +79,7 @@ public class UserController implements Controller {
         if(tokens==null){
             throw new IOException("login fail");
         }
+        System.out.println("accessToken:"+tokens.get("accessToken"));
         respJson.addProperty("accessToken", tokens.get("accessToken"));
         CookieUtil.addRefreshTokenCookie(response,tokens.get("refreshToken"));
     }
