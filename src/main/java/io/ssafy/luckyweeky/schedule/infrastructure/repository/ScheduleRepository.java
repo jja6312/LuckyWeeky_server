@@ -52,4 +52,30 @@ public class ScheduleRepository {
             return scheduleEntities;
         }
     }
+
+    public boolean deleteSchedule(Long scheduleId) {
+        try (SqlSession session = sqlSessionFactory.openSession(false)) {
+            SubScheduleMapper subScheduleMapper = session.getMapper(SubScheduleMapper.class);
+            MainScheduleMapper mainScheduleMapper = session.getMapper(MainScheduleMapper.class);
+
+            subScheduleMapper.deleteSubScheduleByMainScheduleId(scheduleId);
+
+            session.commit();
+            return true;
+        } catch (RuntimeException e) {
+            return false;
+        }
+    }
+
+    public boolean deleteSubSchedule(String subScheduleTitle) {
+        try (SqlSession session = sqlSessionFactory.openSession(false)) {
+            SubScheduleMapper subScheduleMapper = session.getMapper(SubScheduleMapper.class);
+            subScheduleMapper.deleteSubSchedule(subScheduleTitle);
+            session.commit();
+            return true;
+        } catch (RuntimeException e) {
+            return false;
+        }
+    }
+
 }

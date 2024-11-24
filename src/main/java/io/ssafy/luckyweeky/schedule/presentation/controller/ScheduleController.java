@@ -42,7 +42,12 @@ public class ScheduleController implements Controller {//UAKRPCjN
             case "lCSZB":{
                 getSchedulesByDate(request,response,respJson);
                 break;
+            }case "SHVLC": {
+                deleteSubSchedule(request, response, respJson);
+                break;
             }
+
+
         }
     }
 
@@ -87,4 +92,16 @@ public class ScheduleController implements Controller {//UAKRPCjN
         );
         respJson.add("schedules", JsonParser.parseString(scheduleService.getSchedulesByDateRange(params).toString()).getAsJsonArray());
     }
+
+//    임시메서드
+    private void deleteSubSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException {
+        JsonObject jsonObject = RequestJsonParser.getInstance().parseFromBody(request.getReader());
+        String subScheduleTitle = jsonObject.get("subScheduleTitle").getAsString();
+
+        if (!scheduleService.deleteSubSchedule(subScheduleTitle)) {
+            throw new IllegalArgumentException("Failed to delete sub-schedule");
+        }
+    }
+
+
 }

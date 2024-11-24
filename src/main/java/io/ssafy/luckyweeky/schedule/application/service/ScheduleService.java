@@ -31,4 +31,11 @@ public class ScheduleService {
         });
         return scheduleDtos;
     }
+
+
+
+    public boolean deleteSubSchedule(String subScheduleTitle) {
+        return scheduleRepository.deleteSubSchedule(subScheduleTitle);
+    }
+
 }
