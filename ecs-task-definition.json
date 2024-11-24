@@ -18,51 +18,51 @@
       "secrets": [
         {
           "name": "DB_URL",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:DB_URL"
         },
         {
           "name": "DB_USERNAME",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:DB_USERNAME"
         },
         {
           "name": "DB_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:DB_PASSWORD"
         },
         {
           "name": "AWS_ACCESS_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:AWS_ACCESS_KEY"
         },
         {
           "name": "AWS_SECRET_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:AWS_SECRET_KEY"
         },
         {
           "name": "BUCKET_NAME",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:BUCKET_NAME"
         },
         {
           "name": "MACHINE_ID",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:MACHINE_ID"
         },
         {
           "name": "OPENAI_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:OPENAI_API_KEY"
         },
         {
           "name": "GPT_API_ENDPOINT",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:GPT_API_ENDPOINT"
         },
         {
           "name": "CLOVA_API_URL",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:CLOVA_API_URL"
         },
         {
           "name": "CLOVA_ACCESS_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:CLOVA_ACCESS_KEY"
         },
         {
           "name": "CLOVA_SECRET_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:CLOVA_SECRET_KEY"
         }
       ],
       "logConfiguration": {
