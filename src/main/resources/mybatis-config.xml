@@ -15,8 +15,8 @@
     </typeAliases>
 
     <!-- 환경 설정 -->
-    <environments default="development">
-        <environment id="development">
+    <environments default="default">
+        <environment id="default">
             <transactionManager type="JDBC" />
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver" />

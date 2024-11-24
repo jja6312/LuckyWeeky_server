@@ -9,9 +9,20 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class MyBatisSqlSessionFactory {
-    private static SqlSessionFactory sqlSessionFactory;
+    private static volatile SqlSessionFactory sqlSessionFactory;
 
-    static {
+    public static SqlSessionFactory getSqlSessionFactory() {
+        if (sqlSessionFactory == null) {
+            synchronized (MyBatisSqlSessionFactory.class) {
+                if (sqlSessionFactory == null) {
+                    sqlSessionFactory = initializeFactory();
+                }
+            }
+        }
+        return sqlSessionFactory;
+    }
+
+    private static SqlSessionFactory initializeFactory() {
         try {
             // 드라이버 명시적 로드
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -34,10 +45,10 @@ public class MyBatisSqlSessionFactory {
 
             // 4. MyBatis 설정 파일 읽기
             String resource = "mybatis-config.xml"; // 설정 파일 경로
-            InputStream inputStream = Resources.getResourceAsStream(resource);
-
-            // 5. SqlSessionFactory 생성
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, props);
+            try (InputStream inputStream = Resources.getResourceAsStream(resource)) {
+                // 5. SqlSessionFactory 생성
+                return new SqlSessionFactoryBuilder().build(inputStream, props);
+            }
         } catch (IOException e) {
             throw new RuntimeException("Failed to initialize SqlSessionFactory due to IO error.", e);
         } catch (IllegalStateException e) {
@@ -45,9 +56,5 @@ public class MyBatisSqlSessionFactory {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("MySQL Driver not found. Ensure that the MySQL Connector/J is included in the classpath.", e);
         }
-    }
-
-    public static SqlSessionFactory getSqlSessionFactory() {
-        return sqlSessionFactory;
     }
 }
