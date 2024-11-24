@@ -24,6 +24,7 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+
         webInfPath = getServletContext().getRealPath("/WEB-INF");
         try {
             String[] xmlPaths = new String[2];
@@ -46,6 +47,11 @@ public class DispatcherServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         String uri = request.getRequestURI();
+        if(uri.equals("/")){
+            // health check, HTTP OK return
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
 
         String path = RequestUrlPath.getURI(request.getRequestURI())[0];
         if(path.equals("qweSJqwo")){

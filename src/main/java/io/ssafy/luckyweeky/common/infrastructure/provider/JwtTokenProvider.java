@@ -1,14 +1,11 @@
 package io.ssafy.luckyweeky.common.infrastructure.provider;
 
-import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import io.ssafy.luckyweeky.common.DispatcherServlet;
 import jakarta.servlet.http.HttpServletRequest;
 
-import java.io.File;
 import java.security.Key;
 import java.util.Date;
 
@@ -17,11 +14,11 @@ public class JwtTokenProvider {
     private final Key SECREATKEY; // JWT 서명을 위한 Secret Key
 
     private JwtTokenProvider() {
-        Dotenv dotenv = Dotenv.configure()
-                .directory(DispatcherServlet.getWebInfPath()+ File.separatorChar)
-                .filename(".env")
-                .load();
-        this.SECREATKEY = Keys.hmacShaKeyFor(dotenv.get("SECREATKEY").getBytes()); // Secret Key 생성
+        String secretKey = System.getProperty("SECREATKEY"); // 환경 변수에서 Secret Key 가져오기
+        if (secretKey == null || secretKey.isEmpty()) {
+            throw new IllegalArgumentException("Secret key is not defined in environment variables.");
+        }
+        this.SECREATKEY = Keys.hmacShaKeyFor(secretKey.getBytes()); // Secret Key 생성
     }
 
     public static JwtTokenProvider getInstance() {
@@ -34,7 +31,7 @@ public class JwtTokenProvider {
      * @param claims  추가 클레임 (예: 권한 정보)
      * @return 생성된 JWT 토큰
      */
-    public String createToken(String subject, Claims claims,long validityInMilliseconds) {
+    public String createToken(String subject, Claims claims, long validityInMilliseconds) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 

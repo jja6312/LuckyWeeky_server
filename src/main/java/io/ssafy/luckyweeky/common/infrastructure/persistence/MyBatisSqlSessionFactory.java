@@ -1,49 +1,70 @@
 package io.ssafy.luckyweeky.common.infrastructure.persistence;
 
-import io.github.cdimascio.dotenv.Dotenv;
-import io.ssafy.luckyweeky.common.DispatcherServlet;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class MyBatisSqlSessionFactory {
-    private static SqlSessionFactory sqlSessionFactory;
+    private static volatile SqlSessionFactory sqlSessionFactory;
 
-    static {
+    public static SqlSessionFactory getSqlSessionFactory() {
+        if (sqlSessionFactory == null) {
+            synchronized (MyBatisSqlSessionFactory.class) {
+                if (sqlSessionFactory == null) {
+                    sqlSessionFactory = initializeFactory();
+                }
+            }
+        }
+        return sqlSessionFactory;
+    }
+
+    private static SqlSessionFactory initializeFactory() {
         try {
-            // 1. .env 파일 로드
-            Dotenv dotenv = Dotenv.configure()
-                    .directory(DispatcherServlet.getWebInfPath()+ File.separatorChar)
-                    .filename(".env") // 파일 이름 지정 (기본값: ".env")
-                    .load();
+            // 드라이버 명시적 로드
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("MySQL JDBC Driver loaded successfully.");
 
-            // 2. 환경 변수 가져오기
-            String url = dotenv.get("DB_URL");
-            String username = dotenv.get("DB_USERNAME");
-            String password = dotenv.get("DB_PASSWORD");
+            // 환경 변수에서 값을 가져오고 유효성 검사
+            String DB_URL = getPropertyVariable("DB_URL");
+            String DB_USERNAME = getPropertyVariable("DB_USERNAME");
+            String DB_PASSWORD = getPropertyVariable("DB_PASSWORD");
 
-            // 3. Properties 객체에 환경 변수 추가
+            // Properties 객체에 환경 변수 추가
             Properties props = new Properties();
-            props.setProperty("url", url);
-            props.setProperty("username", username);
-            props.setProperty("password", password);
-            // 4. MyBatis 설정 파일 읽기
-            String resource = "mybatis-config.xml"; // 설정 파일 경로
-            InputStream inputStream = Resources.getResourceAsStream(resource);
+            props.setProperty("DB_URL", DB_URL);
+            props.setProperty("DB_USERNAME", DB_USERNAME);
+            props.setProperty("DB_PASSWORD", DB_PASSWORD);
 
-            // 5. SqlSessionFactory 생성 시 Properties 전달
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream, props);
+            System.out.println("Environment variables loaded:");
+            System.out.println("DB_URL: " + DB_URL);
+            System.out.println("DB_USERNAME: " + DB_USERNAME);
+            // 비밀번호는 보안상 로깅하지 않음
+
+            // MyBatis 설정 파일 읽기
+            String resource = "mybatis-config.xml"; // 설정 파일 경로
+            try (InputStream inputStream = Resources.getResourceAsStream(resource)) {
+                SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream, props);
+                System.out.println("MyBatis SqlSessionFactory initialized successfully.");
+                return factory;
+            }
         } catch (IOException e) {
-            throw new RuntimeException("Failed to init SqlSessionFactory.");
+            throw new RuntimeException("Failed to initialize SqlSessionFactory due to IO error. Check your MyBatis configuration file.", e);
+        } catch (IllegalStateException e) {
+            throw new RuntimeException("Failed to initialize SqlSessionFactory due to missing environment variables.", e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("ClassNotFoundException.MYSQL드라이버를 찾을 수 없음.", e);
         }
     }
 
-    public static SqlSessionFactory getSqlSessionFactory() {
-        return sqlSessionFactory;
+    private static String getPropertyVariable(String key) {
+        String value = System.getProperty(key);
+        if (value == null || value.isEmpty()) {
+            throw new IllegalStateException("환경변수 '" + key + "' 가 비어있습니다.");
+        }
+        return value;
     }
 }

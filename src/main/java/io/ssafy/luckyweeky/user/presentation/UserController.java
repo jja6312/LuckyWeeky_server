@@ -10,6 +10,7 @@ import io.ssafy.luckyweeky.common.util.url.RequestUrlPath;
 import io.ssafy.luckyweeky.user.application.dto.GeneralSignupUserDto;
 import io.ssafy.luckyweeky.user.application.dto.LoginUserDto;
 import io.ssafy.luckyweeky.user.application.service.UserService;
+import io.ssafy.luckyweeky.user.application.validator.FileValidator;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.UUID;
 
 public class UserController implements Controller {
     private static final String USER_PART = "user";
@@ -102,3 +104,4 @@ public class UserController implements Controller {
         CookieUtil.deleteRefreshTokenCookie(response);
     }
 }
+

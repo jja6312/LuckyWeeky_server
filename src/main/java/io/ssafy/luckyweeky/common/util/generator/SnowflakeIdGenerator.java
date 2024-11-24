@@ -1,10 +1,5 @@
 package io.ssafy.luckyweeky.common.util.generator;
 
-import io.github.cdimascio.dotenv.Dotenv;
-import io.ssafy.luckyweeky.common.DispatcherServlet;
-
-import java.io.File;
-
 public class SnowflakeIdGenerator {
     private static SnowflakeIdGenerator instance; // 싱글톤 인스턴스
 
@@ -23,16 +18,16 @@ public class SnowflakeIdGenerator {
 
     // private 생성자
     private SnowflakeIdGenerator() {
-        // 1. .env 파일 로드
-        Dotenv dotenv = Dotenv.configure()
-                .directory(DispatcherServlet.getWebInfPath()+ File.separatorChar)
-                .filename(".env") // 파일 이름 지정 (기본값: ".env")
-                .load();
-        String machineIdStr = dotenv.get("MACHINE_ID");
+        // 환경 변수에서 MACHINE_ID 가져오기
+        String machineIdStr = System.getProperty("MACHINE_ID");
         if (machineIdStr == null) {
-            throw new IllegalArgumentException("Machine ID not set");
+            throw new IllegalStateException("환경 변수 'MACHINE_ID'가 설정되지 않았습니다.");
         }
         this.machineId = Long.parseLong(machineIdStr);
+
+        if (this.machineId < 0 || this.machineId > maxMachineId) {
+            throw new IllegalArgumentException("Machine ID는 0 이상 " + maxMachineId + " 이하이어야 합니다.");
+        }
     }
 
     // 싱글톤 인스턴스 반환 메서드
@@ -47,7 +42,7 @@ public class SnowflakeIdGenerator {
         long currentTimestamp = System.currentTimeMillis();
 
         if (currentTimestamp < lastTimestamp) {
-            throw new RuntimeException("Clock moved backwards. Refusing to generate ID.");
+            throw new RuntimeException("시계가 역방향으로 이동했습니다. ID 생성을 거부합니다.");
         }
 
         if (currentTimestamp == lastTimestamp) {

@@ -1,5 +1,7 @@
 package io.ssafy.luckyweeky.schedule.domain.model;
 
+import io.ssafy.luckyweeky.schedule.domain.model.SubScheduleEntity;
+
 import java.util.List;
 
 public class ScheduleEntity {

@@ -2,8 +2,6 @@ package io.ssafy.luckyweeky.scheduleAi.application.service;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import io.github.cdimascio.dotenv.Dotenv;
-import io.ssafy.luckyweeky.common.DispatcherServlet;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -15,20 +13,25 @@ public class ClovaService {
     private final String CLOVA_SECRET_KEY; // 발급받은 Secret Key
 
     public ClovaService() {
-        // 환경 변수 로드
-        Dotenv dotenv = Dotenv.configure()
-                .directory(DispatcherServlet.getWebInfPath() + File.separator)
-                .filename(".env")
-                .load();
+        // 시스템 환경 변수에서 값 로드
+        this.CLOVA_API_URL = System.getProperty("CLOVA_API_URL");
+        this.CLOVA_ACCESS_KEY = System.getProperty("CLOVA_ACCESS_KEY");
+        this.CLOVA_SECRET_KEY = System.getProperty("CLOVA_SECRET_KEY");
 
-        this.CLOVA_API_URL = dotenv.get("CLOVA_API_URL");
-        this.CLOVA_ACCESS_KEY = dotenv.get("CLOVA_ACCESS_KEY");
-        this.CLOVA_SECRET_KEY = dotenv.get("CLOVA_SECRET_KEY");
+        // 환경 변수 유효성 검사
+        if (this.CLOVA_API_URL == null || this.CLOVA_API_URL.isEmpty()) {
+            throw new IllegalStateException("환경 변수 'CLOVA_API_URL'이 설정되지 않았습니다.");
+        }
+        if (this.CLOVA_ACCESS_KEY == null || this.CLOVA_ACCESS_KEY.isEmpty()) {
+            throw new IllegalStateException("환경 변수 'CLOVA_ACCESS_KEY'가 설정되지 않았습니다.");
+        }
+        if (this.CLOVA_SECRET_KEY == null || this.CLOVA_SECRET_KEY.isEmpty()) {
+            throw new IllegalStateException("환경 변수 'CLOVA_SECRET_KEY'가 설정되지 않았습니다.");
+        }
     }
 
     // Clova Speech API 호출
     public String callClovaSTT(InputStream audioStream) throws IOException {
-
         HttpURLConnection connection = null;
         BufferedReader reader = null;
 
@@ -89,5 +92,4 @@ public class ClovaService {
             }
         }
     }
-
 }

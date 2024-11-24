@@ -1,7 +1,5 @@
 package io.ssafy.luckyweeky.common.infrastructure.s3;
 
-import io.github.cdimascio.dotenv.Dotenv;
-import io.ssafy.luckyweeky.common.DispatcherServlet;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -28,15 +26,24 @@ public class S3Fileloader {
                 .credentialsProvider(StaticCredentialsProvider.create(awsCreds))
                 .build();
     }
+
     public static synchronized S3Fileloader getInstance() {
         if (instance == null) {
-            Dotenv dotenv = Dotenv.configure()
-                    .directory(DispatcherServlet.getWebInfPath()+ File.separatorChar)
-                    .filename(".env")
-                    .load();
-            String accessKey = dotenv.get("AWS_ACCESS_KEY");
-            String secretKey = dotenv.get("AWS_SECRET_KEY");
-            BUCKET_NAME = dotenv.get("BUCKET_NAME");
+            // 환경 변수에서 값 가져오기
+            String accessKey = System.getProperty("AWS_ACCESS_KEY");
+            String secretKey = System.getProperty("AWS_SECRET_KEY");
+            BUCKET_NAME = System.getProperty("BUCKET_NAME");
+
+            // 유효성 검사
+            if (accessKey == null || secretKey == null || BUCKET_NAME == null) {
+                throw new IllegalStateException(
+                        "환경 변수 누락: " +
+                                (accessKey == null ? "AWS_ACCESS_KEY " : "") +
+                                (secretKey == null ? "AWS_SECRET_KEY " : "") +
+                                (BUCKET_NAME == null ? "BUCKET_NAME" : "")
+                );
+            }
+
             instance = new S3Fileloader(accessKey, secretKey);
         }
         return instance;
@@ -51,7 +58,7 @@ public class S3Fileloader {
             s3Client.putObject(putObjectRequest, file.toPath());
             return "https://" + BUCKET_NAME + ".s3." + REGION + ".amazonaws.com/" + keyName;
         } catch (S3Exception e) {
-            throw new IOException("S3이미지업로드에러코드작성");
+            throw new IOException("S3 이미지 업로드 에러", e);
         }
     }
 
@@ -65,7 +72,7 @@ public class S3Fileloader {
             return s3Client.getObject(getObjectRequest);
         } catch (S3Exception e) {
             e.printStackTrace();
-            throw new Exception("S3이미지 파일 not found에러");
+            throw new Exception("S3 이미지 파일 not found 에러", e);
         }
     }
 
