@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import io.ssafy.luckyweeky.common.implement.Converter;
 import io.ssafy.luckyweeky.schedule.application.dto.ScheduleDto;
 import io.ssafy.luckyweeky.schedule.application.dto.SubScheduleDto;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class JsonObjectToScheduleDto implements Converter<JsonObject, ScheduleDt
         }
     }
     private String getAsStringOrThrow(JsonObject jsonObject, String key) {
+
         if (!jsonObject.has(key) || jsonObject.get(key).isJsonNull()) {
             throw new IllegalArgumentException("필수요소 존재하지 않음");
         }

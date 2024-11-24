@@ -45,10 +45,43 @@ public class ScheduleController implements Controller {//UAKRPCjN
             }case "SHVLC": {
                 deleteSubSchedule(request, response, respJson);
                 break;
+            }case "BDSdE": {
+                saveAiSchedule(request, response, respJson);
+                break;
             }
 
 
         }
+    }
+
+    private void saveAiSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
+        JsonObject jsonObject = RequestJsonParser.getInstance().parseFromBody(request.getReader());
+        // userId를 JSON 데이터에 추가
+        jsonObject.addProperty("userId", (Long) request.getAttribute("userId"));
+
+        System.out.println("Received JSON Object: " + jsonObject);
+        ScheduleDto scheduleDto = JsonObjectToScheduleDto.getInstance().convert(jsonObject);
+        if (scheduleDto == null) {
+            System.err.println("Converted ScheduleDto is null");
+        }
+        scheduleDto.setUserId((Long) request.getAttribute("userId"));
+
+        if(scheduleDto == null){
+            throw new IllegalArgumentException("request body is invalid");
+        }
+        if(!scheduleService.addSchedule(scheduleDto)){
+            throw new IllegalArgumentException("schedule register failed");
+        }
+        // 등록된 일정 데이터 가져오기
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", scheduleDto.getUserId());
+        params.put("startDate", scheduleDto.getStartTime());
+        params.put("endDate", scheduleDto.getEndTime());
+
+        // 일정 데이터를 JSON 형식으로 변환 후 응답에 추가
+        String scheduleData = scheduleService.getSchedulesByDateRange(params).toString();
+        respJson.add("schedule", JsonParser.parseString(scheduleData).getAsJsonArray());
+
     }
 
     private void addSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
