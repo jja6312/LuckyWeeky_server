@@ -8,7 +8,7 @@
   "containerDefinitions": [
     {
       "name": "app",
-      "image": "law10000hours/luckyweeky-server:latest",
+      "image": "law10000hours/luckyweeky-server:${TAG}",
       "essential": true,
       "portMappings": [
         {
@@ -21,7 +21,6 @@
           "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:luckyweeky-env-vars-eb8zE2"
         }
       ],
-
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
