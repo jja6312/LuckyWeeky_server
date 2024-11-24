@@ -47,3 +47,4 @@
 # Environment files
 src/main/webapp/WEB-INF/.env
 src/main/webapp/WEB-INF/local-secrets.json
+

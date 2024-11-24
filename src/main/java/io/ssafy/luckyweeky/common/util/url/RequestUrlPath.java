@@ -10,4 +10,11 @@ public class RequestUrlPath {
         }
         return path.substring(COMMON_URL_LENGTH).split("/");
     }
+
+    public static String url(String path) throws IllegalArgumentException{
+        if(!path.contains(COMMON_URL)){
+            throw new IllegalArgumentException("잘못된요청url");
+        }
+        return path.substring(COMMON_URL_LENGTH);
+    }
 }

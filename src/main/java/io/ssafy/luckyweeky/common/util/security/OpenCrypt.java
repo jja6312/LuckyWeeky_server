@@ -46,7 +46,6 @@ public class OpenCrypt {
     }
 
     public static byte[] generateKey(String algorithm, int keySize) throws NoSuchAlgorithmException {
-
         KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
         keyGenerator.init(keySize);
         SecretKey key = keyGenerator.generateKey();

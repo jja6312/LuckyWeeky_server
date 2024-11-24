@@ -1,3 +1,4 @@
+
 package io.ssafy.luckyweeky.user.domain.model;
 
 import java.io.Serializable;

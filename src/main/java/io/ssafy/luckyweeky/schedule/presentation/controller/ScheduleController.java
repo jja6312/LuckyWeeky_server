@@ -60,20 +60,26 @@ public class ScheduleController implements Controller {
 
     private void getThisWeekSchedules(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
         LocalDateTime now = LocalDateTime.now();
-        Map<String ,Object> params = new HashMap<>();
-        params.put("userId", 514403967703191552L);
-        params.put("startDate", now.with(DayOfWeek.MONDAY).withHour(0).withMinute(0).withSecond(0));
-        params.put("endDate", now.with(DayOfWeek.SUNDAY).withHour(23).withMinute(59).withSecond(59));
+        Map<String ,Object> params = new HashMap<>(
+                Map.of(
+                        "userId", request.getAttribute("userId"),
+                        "startDate", now.with(DayOfWeek.MONDAY).withHour(0).withMinute(0).withSecond(0),
+                        "endDate", now.with(DayOfWeek.SUNDAY).withHour(23).withMinute(59).withSecond(59)
+                )
+        );
         respJson.add("schedules", JsonParser.parseString(scheduleService.getSchedulesByDateRange(params).toString()).getAsJsonArray());
     }
 
     private void getSchedulesByDate(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException {
         JsonObject jsonObject = RequestJsonParser.getInstance().parseFromBody(request.getReader());
         LocalDateTime date = LocalDateTime.parse(jsonObject.get("date").getAsString(),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Map<String ,Object> params = new HashMap<>();
-        params.put("userId", 514403967703191552L);
-        params.put("startDate", date.with(DayOfWeek.MONDAY).withHour(0).withMinute(0).withSecond(0));
-        params.put("endDate", date.with(DayOfWeek.SUNDAY).withHour(23).withMinute(59).withSecond(59));
+        Map<String ,Object> params = new HashMap<>(
+                Map.of(
+                        "userId", request.getAttribute("userId"),
+                        "startDate", date.with(DayOfWeek.MONDAY).withHour(0).withMinute(0).withSecond(0),
+                        "endDate", date.with(DayOfWeek.SUNDAY).withHour(23).withMinute(59).withSecond(59)
+                )
+        );
         respJson.add("schedules", JsonParser.parseString(scheduleService.getSchedulesByDateRange(params).toString()).getAsJsonArray());
     }
 }
