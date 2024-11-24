@@ -32,7 +32,7 @@ public class AIPromptGenerator {
             + "투자가능한 시간: \n"
             + "추가 요청사항: \n\n"
             
-            + "2. 결과:(반드시 아래처럼 ***json***으로만 출력해야함.) \n"
+            + "2. 결과:(결과는 앞뒤 아무말도 없이 반드시 아래처럼 ***json***으로만 출력해야함.) \n"
             + RESULT_TEMPLATE;
 
     // 2. AI 일정 재요청
