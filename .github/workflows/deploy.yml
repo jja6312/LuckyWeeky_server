@@ -45,8 +45,11 @@ jobs:
       - name: Update Task Definition
         run: |
           TAG=${{ github.sha }}
-          sed -E 's|"image": "law10000hours/luckyweeky-server:latest"|"image": "law10000hours/luckyweeky-server:'"${TAG}"'"|g' ecs-task-definition.json > ecs-task-definition-updated.json
-      
+          IMAGE_NAME=${{ secrets.DOCKER_USERNAME }}/luckyweeky-server
+          echo "Updating Task Definition with IMAGE: $IMAGE_NAME:$TAG"
+
+          sed -E 's|"image": "law10000hours/luckyweeky-server:latest"|"image": "'"${IMAGE_NAME}:${TAG}"'"|g' ecs-task-definition.json > ecs-task-definition-updated.json
+          sed -i '/"taskRoleArn":/d' ecs-task-definition-updated.json
 
       - name: Register Task Definition
         id: register_task_definition
@@ -61,6 +64,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           REGION: ${{ secrets.REGION }}
+
 
       - name: Update ECS Service
         run: |
