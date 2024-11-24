@@ -15,8 +15,8 @@ public class ChatgptService {
 
     public ChatgptService() {
         // 시스템 환경 변수에서 API 키와 엔드포인트 가져오기
-        this.OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
-        this.GPT_API_ENDPOINT = System.getenv("GPT_API_ENDPOINT");
+        this.OPENAI_API_KEY = System.getProperty("OPENAI_API_KEY");
+        this.GPT_API_ENDPOINT = System.getProperty("GPT_API_ENDPOINT");
 
         if (this.OPENAI_API_KEY == null || this.OPENAI_API_KEY.isEmpty()) {
             throw new IllegalStateException("환경 변수 'OPENAI_API_KEY'가 설정되지 않았습니다.");

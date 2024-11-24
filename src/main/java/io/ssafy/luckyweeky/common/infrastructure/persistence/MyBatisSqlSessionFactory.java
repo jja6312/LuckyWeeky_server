@@ -29,9 +29,9 @@ public class MyBatisSqlSessionFactory {
             System.out.println("MySQL JDBC Driver loaded successfully.");
 
             // 환경 변수에서 값을 가져오고 유효성 검사
-            String DB_URL = getEnvVariable("DB_URL");
-            String DB_USERNAME = getEnvVariable("DB_USERNAME");
-            String DB_PASSWORD = getEnvVariable("DB_PASSWORD");
+            String DB_URL = getPropertyVariable("DB_URL");
+            String DB_USERNAME = getPropertyVariable("DB_USERNAME");
+            String DB_PASSWORD = getPropertyVariable("DB_PASSWORD");
 
             // Properties 객체에 환경 변수 추가
             Properties props = new Properties();
@@ -60,8 +60,8 @@ public class MyBatisSqlSessionFactory {
         }
     }
 
-    private static String getEnvVariable(String key) {
-        String value = System.getenv(key);
+    private static String getPropertyVariable(String key) {
+        String value = System.getProperty(key);
         if (value == null || value.isEmpty()) {
             throw new IllegalStateException("환경변수 '" + key + "' 가 비어있습니다.");
         }

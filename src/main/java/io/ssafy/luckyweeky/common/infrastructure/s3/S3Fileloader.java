@@ -30,9 +30,9 @@ public class S3Fileloader {
     public static synchronized S3Fileloader getInstance() {
         if (instance == null) {
             // 환경 변수에서 값 가져오기
-            String accessKey = System.getenv("AWS_ACCESS_KEY");
-            String secretKey = System.getenv("AWS_SECRET_KEY");
-            BUCKET_NAME = System.getenv("BUCKET_NAME");
+            String accessKey = System.getProperty("AWS_ACCESS_KEY");
+            String secretKey = System.getProperty("AWS_SECRET_KEY");
+            BUCKET_NAME = System.getProperty("BUCKET_NAME");
 
             // 유효성 검사
             if (accessKey == null || secretKey == null || BUCKET_NAME == null) {

@@ -14,9 +14,9 @@ public class ClovaService {
 
     public ClovaService() {
         // 시스템 환경 변수에서 값 로드
-        this.CLOVA_API_URL = System.getenv("CLOVA_API_URL");
-        this.CLOVA_ACCESS_KEY = System.getenv("CLOVA_ACCESS_KEY");
-        this.CLOVA_SECRET_KEY = System.getenv("CLOVA_SECRET_KEY");
+        this.CLOVA_API_URL = System.getProperty("CLOVA_API_URL");
+        this.CLOVA_ACCESS_KEY = System.getProperty("CLOVA_ACCESS_KEY");
+        this.CLOVA_SECRET_KEY = System.getProperty("CLOVA_SECRET_KEY");
 
         // 환경 변수 유효성 검사
         if (this.CLOVA_API_URL == null || this.CLOVA_API_URL.isEmpty()) {

@@ -19,7 +19,7 @@ public class SnowflakeIdGenerator {
     // private 생성자
     private SnowflakeIdGenerator() {
         // 환경 변수에서 MACHINE_ID 가져오기
-        String machineIdStr = System.getenv("MACHINE_ID");
+        String machineIdStr = System.getProperty("MACHINE_ID");
         if (machineIdStr == null) {
             throw new IllegalStateException("환경 변수 'MACHINE_ID'가 설정되지 않았습니다.");
         }
