@@ -4,6 +4,12 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
+
+    <!-- Listener 등록 -->
+    <listener>
+        <listener-class>io.ssafy.luckyweeky.common.env.SecretManagerContextListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>DispatcherServlet</servlet-name>
         <servlet-class>io.ssafy.luckyweeky.common.DispatcherServlet</servlet-class>

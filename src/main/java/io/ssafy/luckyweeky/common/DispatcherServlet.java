@@ -2,7 +2,6 @@ package io.ssafy.luckyweeky.common;
 
 import com.google.gson.JsonObject;
 import io.ssafy.luckyweeky.common.config.XmlBeanFactory;
-import io.ssafy.luckyweeky.common.env.SecretManagerInit;
 import io.ssafy.luckyweeky.common.implement.Controller;
 import io.ssafy.luckyweeky.common.util.stream.ImageStreamUtil;
 import io.ssafy.luckyweeky.common.util.url.RequestUrlPath;
@@ -25,12 +24,7 @@ public class DispatcherServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        try {
-            new SecretManagerInit(); // 환경변수 세팅
-        } catch (Exception e) {
-            System.out.println("로컬에서 실행");
-            e.printStackTrace();
-        }
+
         webInfPath = getServletContext().getRealPath("/WEB-INF");
         try {
             String[] xmlPaths = new String[2];
