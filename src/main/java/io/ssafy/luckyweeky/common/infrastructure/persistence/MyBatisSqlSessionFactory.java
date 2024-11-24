@@ -26,35 +26,45 @@ public class MyBatisSqlSessionFactory {
         try {
             // 드라이버 명시적 로드
             Class.forName("com.mysql.cj.jdbc.Driver");
+            System.out.println("MySQL JDBC Driver loaded successfully.");
 
-            // 1. 환경 변수에서 값을 가져옴
-            String DB_URL = System.getenv("DB_URL");
-            String DB_USERNAME = System.getenv("DB_USERNAME");
-            String DB_PASSWORD = System.getenv("DB_PASSWORD");
+            // 환경 변수에서 값을 가져오고 유효성 검사
+            String DB_URL = getEnvVariable("DB_URL");
+            String DB_USERNAME = getEnvVariable("DB_USERNAME");
+            String DB_PASSWORD = getEnvVariable("DB_PASSWORD");
 
-            // 2. 유효성 검사
-            if (DB_URL == null || DB_USERNAME == null || DB_PASSWORD == null) {
-                throw new IllegalStateException("Required environment variables are missing. Check DB_URL, DB_USERNAME, DB_PASSWORD.");
-            }
-
-            // 3. Properties 객체에 환경 변수 추가
+            // Properties 객체에 환경 변수 추가
             Properties props = new Properties();
             props.setProperty("DB_URL", DB_URL);
             props.setProperty("DB_USERNAME", DB_USERNAME);
             props.setProperty("DB_PASSWORD", DB_PASSWORD);
 
-            // 4. MyBatis 설정 파일 읽기
+            System.out.println("Environment variables loaded:");
+            System.out.println("DB_URL: " + DB_URL);
+            System.out.println("DB_USERNAME: " + DB_USERNAME);
+            // 비밀번호는 보안상 로깅하지 않음
+
+            // MyBatis 설정 파일 읽기
             String resource = "mybatis-config.xml"; // 설정 파일 경로
             try (InputStream inputStream = Resources.getResourceAsStream(resource)) {
-                // 5. SqlSessionFactory 생성
-                return new SqlSessionFactoryBuilder().build(inputStream, props);
+                SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream, props);
+                System.out.println("MyBatis SqlSessionFactory initialized successfully.");
+                return factory;
             }
         } catch (IOException e) {
-            throw new RuntimeException("Failed to initialize SqlSessionFactory due to IO error.", e);
+            throw new RuntimeException("Failed to initialize SqlSessionFactory due to IO error. Check your MyBatis configuration file.", e);
         } catch (IllegalStateException e) {
             throw new RuntimeException("Failed to initialize SqlSessionFactory due to missing environment variables.", e);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException("MySQL Driver not found. Ensure that the MySQL Connector/J is included in the classpath.", e);
+            throw new RuntimeException("ClassNotFoundException.MYSQL드라이버를 찾을 수 없음.", e);
         }
+    }
+
+    private static String getEnvVariable(String key) {
+        String value = System.getenv(key);
+        if (value == null || value.isEmpty()) {
+            throw new IllegalStateException("환경변수 '" + key + "' 가 비어있습니다.");
+        }
+        return value;
     }
 }

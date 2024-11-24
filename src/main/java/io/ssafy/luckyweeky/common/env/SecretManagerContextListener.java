@@ -17,7 +17,8 @@ public class SecretManagerContextListener implements ServletContextListener {
             secrets.keySet().forEach(key -> {
                 String value = secrets.getString(key);
                 System.setProperty(key, value);
-                System.out.println("환경 변수 '" + key + "'가 설정되었습니다.");
+                System.out.println("환경 변수 '" + key + ", 값:"+ value +"가 설정되었습니다.");
+
             });
 
         } catch (Exception e) {
