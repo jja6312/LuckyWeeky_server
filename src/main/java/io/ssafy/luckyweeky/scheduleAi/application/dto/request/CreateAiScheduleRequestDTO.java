@@ -36,4 +36,15 @@ public class CreateAiScheduleRequestDTO {
     public String getAdditionalRequest() {
         return additionalRequest;
     }
+
+    @Override
+    public String toString() {
+        return "CreateAiScheduleRequestDTO{" +
+                "startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", task='" + task + '\'' +
+                ", availableTime='" + availableTime + '\'' +
+                ", additionalRequest='" + additionalRequest + '\'' +
+                '}';
+    }
 }

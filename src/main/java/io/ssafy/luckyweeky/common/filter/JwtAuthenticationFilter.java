@@ -33,7 +33,7 @@ public class JwtAuthenticationFilter implements Filter {
         try {
             // 1. 헤더에서 Authorization 값 추출
             String token = JwtTokenProvider.getInstance().resolveToken(httpRequest);
-            System.out.println(token);
+            System.out.println("token:+ "+token);
             // 2. 토큰 검증
             if (token != null && JwtTokenProvider.getInstance().validateToken(token)) {
                 // 토큰이 유효한 경우: 사용자 정보를 SecurityContext에 저장하거나 클레임 추출

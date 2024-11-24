@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ScheduleController implements Controller {
+public class ScheduleController implements Controller {//UAKRPCjN
     private final ScheduleService scheduleService;
     public ScheduleController() {
         this.scheduleService =(ScheduleService) XmlBeanFactory.getBean("scheduleService");
@@ -50,6 +50,11 @@ public class ScheduleController implements Controller {
         // 요청 본문에서 JSON 데이터를 파싱
         JsonObject jsonObject = RequestJsonParser.getInstance().parseFromBody(request.getReader());
         ScheduleDto scheduleDto = JsonObjectToScheduleDto.getInstance().convert(jsonObject);
+        System.out.println("scheduleDto"+scheduleDto);
+        scheduleDto.setUserId((Long) request.getAttribute("userId"));
+        System.out.println("scheduleDto"+scheduleDto);
+
+
         if(scheduleDto==null){
             throw new IllegalArgumentException("request body is invalid");
         }

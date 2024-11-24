@@ -93,7 +93,7 @@ public class ScheduleAiController implements Controller {
         try (BufferedReader reader = request.getReader()) {
             requestData = RequestJsonParser.getInstance().parseFromBody(reader);
         }
-        ;
+
 
         // DTO 생성
         CreateAiScheduleRequestDTO createAiScheduleRequestDTO = new CreateAiScheduleRequestDTO(
@@ -104,10 +104,10 @@ public class ScheduleAiController implements Controller {
                 requestData.has("additionalRequest") ? requestData.get("additionalRequest").getAsString() : null
         );
 
-
+        System.out.println("createAiScheduleRequestDTO: " + createAiScheduleRequestDTO);
         // 서비스 호출
         String aiGeneratedResult = scheduleAiService.generateSchedule(createAiScheduleRequestDTO);
-        System.out.println(aiGeneratedResult);
+        System.out.println("====aiGeneratedResult====\n"+aiGeneratedResult);
 
         // 응답 데이터 구성
         respJson.addProperty("result", "true");

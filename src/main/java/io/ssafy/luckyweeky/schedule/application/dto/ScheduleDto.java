@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ScheduleDto {
     private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    private final Long userId;
+    private Long userId;
     private final String mainTitle;
     private final String color;
     private final LocalDateTime startTime; // 시작 시간
@@ -54,6 +54,10 @@ public class ScheduleDto {
 
     public List<SubScheduleDto> getSubSchedules() {
         return subSchedules;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
