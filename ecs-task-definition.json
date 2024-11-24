@@ -64,7 +64,9 @@
           "name": "CLOVA_SECRET_KEY",
           "valueFrom": "arn:aws:secretsmanager:ap-northeast-2:397064606679:secret:CLOVA_SECRET_KEY"
         }
+
       ],
+
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
