@@ -17,6 +17,7 @@ public class SecretManagerInit {
         secrets.keySet().forEach(key -> {
             String value = secrets.getString(key);
             System.setProperty(key, value); // JVM 시스템 속성에 추가
+            System.out.println("환경 변수 '" + key + "'가 설정되었습니다.");
         });
 
         // 4. 설정 확인 및 사용
