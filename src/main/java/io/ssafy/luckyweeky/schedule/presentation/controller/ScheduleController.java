@@ -46,8 +46,6 @@ public class ScheduleController implements Controller {//UAKRPCjN
                 deleteSubSchedule(request, response, respJson);
                 break;
             }
-
-
         }
     }
 
@@ -102,6 +100,4 @@ public class ScheduleController implements Controller {//UAKRPCjN
             throw new IllegalArgumentException("Failed to delete sub-schedule");
         }
     }
-
-
 }

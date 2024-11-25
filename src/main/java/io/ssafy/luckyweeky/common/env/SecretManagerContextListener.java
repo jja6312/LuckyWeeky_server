@@ -34,6 +34,7 @@ public class SecretManagerContextListener implements ServletContextListener {
             });
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException("환경 변수 초기화에 실패했습니다.", e);
         }
     }
