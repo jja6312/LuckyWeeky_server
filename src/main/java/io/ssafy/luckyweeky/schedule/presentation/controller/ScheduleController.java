@@ -85,9 +85,8 @@ public class ScheduleController implements Controller {//UAKRPCjN
     private void addSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
         // 요청 본문에서 JSON 데이터를 파싱
         JsonObject jsonObject = RequestJsonParser.getInstance().parseFromBody(request.getReader());
+        jsonObject.addProperty("userId", (Long) request.getAttribute("userId"));
         ScheduleDto scheduleDto = JsonObjectToScheduleDto.getInstance().convert(jsonObject);
-        scheduleDto.setUserId((Long) request.getAttribute("userId"));
-
         if(scheduleDto==null){
             throw new IllegalArgumentException("request body is invalid");
         }
@@ -124,9 +123,10 @@ public class ScheduleController implements Controller {//UAKRPCjN
 //    임시메서드
     private void deleteSubSchedule(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws IOException {
         JsonObject jsonObject = RequestJsonParser.getInstance().parseFromBody(request.getReader());
+        String userId = request.getAttribute("userId").toString();
         String subScheduleTitle = jsonObject.get("subScheduleTitle").getAsString();
 
-        if (!scheduleService.deleteSubSchedule(subScheduleTitle)) {
+        if (!scheduleService.deleteSubSchedule(Map.of("subScheduleTitle",subScheduleTitle,"userId",userId))) {
             throw new IllegalArgumentException("Failed to delete sub-schedule");
         }
     }

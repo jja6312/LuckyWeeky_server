@@ -91,7 +91,6 @@ public class DispatcherServlet extends HttpServlet {
         } catch (Exception e) {
             respJson.addProperty("result","false");
             respJson.addProperty("errCode",e.getMessage());
-            e.printStackTrace();
         }finally {
             out.append(respJson.toString());
             out.close();

@@ -17,7 +17,7 @@ public class SecretManagerContextListener implements ServletContextListener {
 
             // 환경 변수 확인
             if (secretJson == null) {
-                System.out.println("환경 변수 'LUCKYWEEKY_ENV_VARS'가 설정되지 않았습니다. 로컬 설정 파일을 사용합니다.");
+//                System.out.println("환경 변수 'LUCKYWEEKY_ENV_VARS'가 설정되지 않았습니다. 로컬 설정 파일을 사용합니다.");
                 secretJson = readLocalSecrets(sce); // 로컬 JSON 파일 읽기
             }
 
@@ -30,7 +30,7 @@ public class SecretManagerContextListener implements ServletContextListener {
             secrets.keySet().forEach(key -> {
                 String value = secrets.getString(key);
                 System.setProperty(key, value);
-                System.out.println("환경 변수 '" + key + "' 값이 설정되었습니다");
+//                System.out.println("환경 변수 '" + key + "' 값이 설정되었습니다");
             });
 
         } catch (Exception e) {
@@ -47,11 +47,11 @@ public class SecretManagerContextListener implements ServletContextListener {
     private String readLocalSecrets(ServletContextEvent sce) {
         try {
             String realPath = sce.getServletContext().getRealPath("/WEB-INF/local-secrets.json");
-            System.out.println("로컬 설정 파일 경로: " + realPath);
+//            System.out.println("로컬 설정 파일 경로: " + realPath);
 
             File file = new File(realPath);
             if (!file.exists()) {
-                System.err.println("로컬 설정 파일이 존재하지 않습니다: " + realPath);
+//                System.err.println("로컬 설정 파일이 존재하지 않습니다: " + realPath);
                 return null;
             }
 
@@ -60,7 +60,7 @@ public class SecretManagerContextListener implements ServletContextListener {
                 return scanner.next();
             }
         } catch (IOException e) {
-            System.err.println("로컬 설정 파일을 읽는 중 오류가 발생했습니다: " + e.getMessage());
+//            System.err.println("로컬 설정 파일을 읽는 중 오류가 발생했습니다: " + e.getMessage());
             return null;
         }
     }
