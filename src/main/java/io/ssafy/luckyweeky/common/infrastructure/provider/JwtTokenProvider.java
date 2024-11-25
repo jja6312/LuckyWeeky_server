@@ -94,22 +94,4 @@ public class JwtTokenProvider {
         }
         return null;
     }
-
-    public String getRefreshTokenFromCookie(HttpServletRequest request) {
-        // 쿠키 배열을 가져옴
-        Cookie[] cookies = request.getCookies();
-        String refreshToken = null;
-
-        // 쿠키가 존재하면 반복문을 돌며 "refreshToken" 쿠키를 찾음
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("refreshToken".equals(cookie.getName())) {
-                    refreshToken = cookie.getValue();
-                    break;
-                }
-            }
-        }
-        return refreshToken; // 토큰을 반환 (없으면 null 반환)
-    }
-
 }
