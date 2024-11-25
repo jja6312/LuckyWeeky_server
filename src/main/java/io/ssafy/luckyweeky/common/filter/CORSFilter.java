@@ -5,7 +5,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Set;
 
 public class CORSFilter implements Filter {
@@ -27,7 +26,7 @@ public class CORSFilter implements Filter {
         // Origin이 허용된 목록에 있는지 확인
         if (origin == null || !ALLOWED_ORIGINS.contains(origin)) {
             httpResponse.setStatus(HttpServletResponse.SC_OK);
-            httpResponse.getWriter().write("{\"error\": \"허용되지 않은 요청입니다\"}");
+            httpResponse.getWriter().write("{\"error\": \"This request is not allowed\"}");
             return;
         }
         // CORS 헤더 설정
