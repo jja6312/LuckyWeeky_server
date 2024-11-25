@@ -118,6 +118,7 @@ public class ScheduleController implements Controller {//UAKRPCjN
                 )
         );
         respJson.add("schedules", JsonParser.parseString(scheduleService.getSchedulesByDateRange(params).toString()).getAsJsonArray());
+        System.out.println(respJson.get("schedules").toString());
     }
 
 //    임시메서드
