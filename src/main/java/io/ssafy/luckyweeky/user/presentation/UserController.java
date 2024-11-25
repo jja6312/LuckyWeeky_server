@@ -88,7 +88,10 @@ public class UserController implements Controller {
 
     public void refreshToken(HttpServletRequest request, HttpServletResponse response, JsonObject respJson) throws ServletException, IOException {
         String refreshToken = CookieUtil.getRefreshToken(request);
-        Map<String,String> newTokens = userService.createTokens(refreshToken);
+        Map<String,String> newTokens = userService.createTokens(Map.of(
+                "refreshToken",refreshToken,
+                "userId",request.getAttribute("userId")
+        ));
         respJson.addProperty("accessToken", newTokens.get("accessToken"));
         CookieUtil.addRefreshTokenCookie(response,newTokens.get("refreshToken"));
     }

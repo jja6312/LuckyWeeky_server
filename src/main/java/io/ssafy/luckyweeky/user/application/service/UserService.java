@@ -16,6 +16,7 @@ import io.ssafy.luckyweeky.user.domain.model.UserEntity;
 import io.ssafy.luckyweeky.user.domain.model.UserSaltEntity;
 import io.ssafy.luckyweeky.user.infrastructure.repository.UserRepository;
 import jakarta.servlet.http.Part;
+import org.apache.ibatis.annotations.One;
 
 import java.io.File;
 import java.io.IOException;
@@ -107,7 +108,7 @@ public class UserService {
                 // S3에 파일 등록
                 S3Fileloader.getInstance().upload(tempFile, generalSignupUser.getProfileImageKey());
             } catch (IOException e) {
-                throw new IOException("파일 업로드 에러 코드 작성");
+                throw new IOException("File Upload Error");
             } finally {
                 if (tempFile != null && tempFile.exists()) {
                     // 임시 파일 삭제
@@ -143,25 +144,21 @@ public class UserService {
     /**
      * 사용자 tokens 검사 and 생성
      *
-     * @param refreshToken
+     * @param Map
      * @return 유효시 시 새로운access_token, refresh_token
-     *         유효하지 않을 시 null
+     * 유효하지 않을 시 null
      */
-    public Map<String,String> createTokens(String refreshToken) {
-        if (
-                refreshToken == null||
-                !JwtTokenProvider.getInstance().validateToken(refreshToken)||
-                !refreshToken.equals(userRepository.getUserToken(Long.parseLong(JwtTokenProvider.getInstance().getSubject(refreshToken))))
-        ) {
+    public Map<String, String> createTokens(Map<String, Object> params) {
+        String userId = (String) params.get("userId");
+        String refreshToken = (String) params.get("refreshToken");
+        if (userId == null || refreshToken == null) {
             return null;
         }
-        String userId = JwtTokenProvider.getInstance().getSubject(refreshToken);
         UserEntity user = userRepository.findById(Long.parseLong(userId));
-
 
         Claims accessClaims = Jwts.claims();
         accessClaims.put("name", user.getUsername());
-        String newAccessToken =JwtTokenProvider.getInstance().createToken(userId, accessClaims, ACCESS_TOKEN_VALIDITY);
+        String newAccessToken = JwtTokenProvider.getInstance().createToken(userId, accessClaims, ACCESS_TOKEN_VALIDITY);
         String newRefreshToken = JwtTokenProvider.getInstance().createToken(userId, Jwts.claims(), REFRESH_TOKEN_VALIDITY);
 
         return userRepository.updateRefreshToken(user.getUserId(), newRefreshToken)

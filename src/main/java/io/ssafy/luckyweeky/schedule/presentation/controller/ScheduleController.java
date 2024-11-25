@@ -53,10 +53,7 @@ public class ScheduleController implements Controller {//UAKRPCjN
         // 요청 본문에서 JSON 데이터를 파싱
         JsonObject jsonObject = RequestJsonParser.getInstance().parseFromBody(request.getReader());
         ScheduleDto scheduleDto = JsonObjectToScheduleDto.getInstance().convert(jsonObject);
-        System.out.println("scheduleDto"+scheduleDto);
         scheduleDto.setUserId((Long) request.getAttribute("userId"));
-        System.out.println("scheduleDto"+scheduleDto);
-
 
         if(scheduleDto==null){
             throw new IllegalArgumentException("request body is invalid");

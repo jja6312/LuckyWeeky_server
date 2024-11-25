@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.security.Key;
@@ -93,4 +94,22 @@ public class JwtTokenProvider {
         }
         return null;
     }
+
+    public String getRefreshTokenFromCookie(HttpServletRequest request) {
+        // 쿠키 배열을 가져옴
+        Cookie[] cookies = request.getCookies();
+        String refreshToken = null;
+
+        // 쿠키가 존재하면 반복문을 돌며 "refreshToken" 쿠키를 찾음
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("refreshToken".equals(cookie.getName())) {
+                    refreshToken = cookie.getValue();
+                    break;
+                }
+            }
+        }
+        return refreshToken; // 토큰을 반환 (없으면 null 반환)
+    }
+
 }
