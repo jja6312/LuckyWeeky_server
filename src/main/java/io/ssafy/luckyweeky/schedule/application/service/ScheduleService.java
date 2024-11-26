@@ -59,6 +59,10 @@ public class ScheduleService {
             System.out.println("redis connection error");
             scheduleEntities = scheduleRepository.getSchedulesByDateRange(params);
         }
+        // 검증 로직
+
+
+        //
         List<ScheduleDto> scheduleDtos = new ArrayList<>();
         scheduleEntities.forEach(scheduleEntity -> {
             scheduleDtos.add(ScheduleEntityToScheduleDto.getInstance().convert(scheduleEntity));

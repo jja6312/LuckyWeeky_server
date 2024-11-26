@@ -17,7 +17,7 @@ public class RedisManager {
         poolConfig.setMaxTotal(50); // 최대 연결 수 설정
         // JedisPool 객체를 생성하여 Redis 연결 풀 초기화
         // 파라미터: 설정(config), 호스트, 포트, 연결 시간 초과(ms), 암호, SSL 사용 여부
-        pool = new JedisPool(poolConfig, redisHost, redisPort, 2000, null, true);
+        pool = new JedisPool(poolConfig, redisHost, redisPort, 2000, null, false);
     }
 
     public static JedisPool getPool() {
