@@ -17,9 +17,7 @@
 
 | 정지안[PL]                          | 우성문                           |
 |--------------------------------|--------------------------------|
-| ![jja](https://github.com/user-attachments/assets/5a385ccc-7b90-40fb-8624-0d490994dc33)
- | ![wsm](https://github.com/user-attachments/assets/513c772f-e074-462b-8132-a5dcad947b31)
- |
+| ![jja](https://github.com/user-attachments/assets/5a385ccc-7b90-40fb-8624-0d490994dc33) | ![wsm](https://github.com/user-attachments/assets/513c772f-e074-462b-8132-a5dcad947b31) |
 | @jja6312                      | @tjdansw                   |
 | FE,Infra, BE(AI일정등록/음성일정등록) | BE(서블릿 환경 구축/로그인/회원가입/일정CRUD) |
 
