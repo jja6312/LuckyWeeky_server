@@ -14,7 +14,12 @@
 ---
 
 ## 팀 소개
-(팀원 및 역할 소개 등)
+
+| 정지안[PL]                          | 우성문                           |
+|--------------------------------|--------------------------------|
+| ![160_200](https://github.com/user-attachments/assets/b1b71b3a-ee1b-4c6d-a42b-7c78a3d92c76) | ![wsm](https://github.com/user-attachments/assets/c09e14b0-17b6-4307-abd6-97de6681605c) |
+| @jja6312                      | @tjdansw                   |
+| FE,Infra, BE(AI일정등록/음성일정등록) | BE(서블릿 환경 구축/로그인/회원가입/일정CRUD) |
 
 ---
 
