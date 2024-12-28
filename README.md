@@ -126,7 +126,7 @@ CREATE TABLE subschedule (
   "CLOVA_SECRET_KEY": "YOUR_CLOVA_SECRET_KEY",
   "SECREATKEY": "pdFfOvKx3mEmfhkZcTWd5WNCaHxeInRK"
 }
-
+```
 
 ## 기술 스택
 
@@ -241,3 +241,4 @@ LuckyWeeky_server/
 │       └── META-INF/                  # 메타데이터
 └── target/
     └── LuckyWeeky_server.war          # 배포 가능한 WAR 파일
+```
