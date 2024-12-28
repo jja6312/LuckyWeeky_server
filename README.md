@@ -1,7 +1,9 @@
 # LuckyWeeky
 
 ---
-![luckyweekylogo2](https://github.com/user-attachments/assets/1e304651-bdd5-43ab-a884-79fede7964b1)
+<div align="center">
+    <img src="https://github.com/user-attachments/assets/1e304651-bdd5-43ab-a884-79fede7964b1" alt="luckyweekylogo2" width="300">
+</div>
 
 > **삼성 청년 소프트웨어 아카데미 12기**  
 > 개발기간 : 3주 (2024.11.04 ~ 11.26)
