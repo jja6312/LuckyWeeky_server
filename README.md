@@ -12,14 +12,13 @@
 [https://luckyweeky.store](https://luckyweeky.store)
 
 ---
-
 ## 팀 소개
 
-| 정지안[PL]                          | 우성문                           |
-|--------------------------------|--------------------------------|
-| ![jja](https://github.com/user-attachments/assets/5a385ccc-7b90-40fb-8624-0d490994dc33) | ![wsm](https://github.com/user-attachments/assets/513c772f-e074-462b-8132-a5dcad947b31) |
-| @jja6312                      | @tjdansw                   |
-| FE,Infra, BE(AI일정등록/음성일정등록) | BE(서블릿 환경 구축/로그인/회원가입/일정CRUD) |
+| 정지안 [PL]                                                                 | 우성문                                                                 |
+|-----------------------------------------------------------------------------|------------------------------------------------------------------------|
+| <p align="center">![jja](https://github.com/user-attachments/assets/5a385ccc-7b90-40fb-8624-0d490994dc33)</p> | <p align="center">![wsm](https://github.com/user-attachments/assets/513c772f-e074-462b-8132-a5dcad947b31)</p> |
+| <p align="center">[@jja6312](https://github.com/jja6312)</p>                | <p align="center">[@tjdansw](https://github.com/tjdansw)</p>           |
+| <p align="center">FE, Infra, BE (AI 일정등록/음성 일정등록)</p>              | <p align="center">BE (서블릿 환경 구축/로그인/회원가입/일정 CRUD)</p>  |
 
 ---
 
