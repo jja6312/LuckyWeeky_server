@@ -188,10 +188,10 @@ CREATE TABLE subschedule (
 | 5. 일정 수정 삭제    | ![4일정수정삭제](https://github.com/user-attachments/assets/cad6b13c-93fd-4365-a268-0dde271676a1) |   | |
 
 ## UML: 플로우 차트
-(플로우 차트 이미지)
+<img width="5213" alt="FlowChart" src="https://github.com/user-attachments/assets/f4d16a1c-0589-427d-b3a4-cc6cf94366c6" />
 
 ## ERD
-(ERD 이미지)
+![erd](https://github.com/user-attachments/assets/d8bf25d1-1271-445a-9f09-760e486533cf)
 
 ---
 
