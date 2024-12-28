@@ -18,7 +18,7 @@
 |-----------------------------------------------------------------------------|------------------------------------------------------------------------|
 | <p align="center">![jja](https://github.com/user-attachments/assets/5a385ccc-7b90-40fb-8624-0d490994dc33)</p> | <p align="center">![wsm](https://github.com/user-attachments/assets/513c772f-e074-462b-8132-a5dcad947b31)</p> |
 | <p align="center">[@jja6312](https://github.com/jja6312)</p>                | <p align="center">[@tjdansw](https://github.com/tjdansw)</p>           |
-| <p align="center">FE, Infra, BE (AI 일정등록/음성 일정등록)</p>              | <p align="center">BE (서블릿 환경 구축/로그인/회원가입/일정 CRUD)</p>  |
+| <p align="center">FE, Infra, BE (AI 일정등록/음성 일정등록), APM</p>              | <p align="center">BE (서블릿 환경 구축/로그인/회원가입/일정 CRUD)</p>  |
 
 ---
 
@@ -146,16 +146,19 @@ CREATE TABLE subschedule (
 ---
 
 # 화면 구성
+대표이미지
+![대표이미지](https://github.com/user-attachments/assets/7a951c4b-161b-4da3-af2d-e3ca59fa3e84)
 
 
 | 기능명           | 이미지                                | 기능명           | 이미지                                |
 |------------------|---------------------------------------|------------------|---------------------------------------|
-| 1. 로그인        | ![로그인](./images/1로그인.png)      | 2. 회원가입      | ![회원가입](./images/2회원가입.png)  |
-| 3. 메인화면      | ![메인화면](./images/3메인화면.png)  | 4. 일정생성      | ![일정생성](./images/4_1일정생성.png) |
-| 5. 일정조회      | ![일정조회](./images/5_일정조회.png) | 6. 일정수정      | ![일정수정](./images/6_일정수정.png) |
-| 7. AI 일정생성   | ![AI일정생성](./images/7_AI일정생성.png) | 8. AI 완료      | ![AI완료](./images/8_AI완료.png) |
-| 9. AI 수정       | ![AI수정](./images/9_AI수정.png) | 10. 재요청        | ![재요청](./images/10_재요청.png) |
-| 11. 완료         | ![완료](./images/11_완료.png)        |                  |                                       |
+| 1. 로그인        | ![0로그인](https://github.com/user-attachments/assets/cc41194c-c4be-498a-b766-afed77562f24)     | 2. 회원가입      | ![1회원가입](https://github.com/user-attachments/assets/b3e2926a-3c91-48fd-925d-ca9afaa1cad9)
+  |
+| 3. 메인화면      | ![2메인화면](https://github.com/user-attachments/assets/aa4432c2-1e7d-42d2-8c02-ea9b1f2880dc)  | 4. 일정생성      | ![3_1일정생성](https://github.com/user-attachments/assets/2de4fc89-a1d6-49ef-9b86-744cc7ec4e52) |
+| 5. 일정조회      | ![3_2일정조회](https://github.com/user-attachments/assets/808b4f19-0d82-4b47-b712-cc1790b8c4eb) | 6. 일정수정      | ![3_3일정수정png](https://github.com/user-attachments/assets/50688d61-7cb3-4963-82de-0f496b7d3ec5) |
+| 7. AI 일정생성   | ![4_1AI일정생성](https://github.com/user-attachments/assets/3b65c370-0bce-4786-9422-2b9c0b71ac3d) | 8. AI 완료      | ![4_2AI일정생성완료](https://github.com/user-attachments/assets/db1ddcb2-aedb-4437-887c-44a74576e04a) |
+| 9. AI 수정       | ![4_3AI일정수정](https://github.com/user-attachments/assets/9d6b12d4-96cc-420f-a875-57f3725332b0) | 10. 재요청        | ![4_4AI일정재요청](https://github.com/user-attachments/assets/ee477a06-ea95-4b6b-bdfd-bb9526f04bb6) |
+| 11. 재요청 완료         | ![4_5AI일정재요청완료](https://github.com/user-attachments/assets/8f1963bb-95c8-4507-9a55-82ad19fd8989)        |                  |                                       |
 
 
 ---
