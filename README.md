@@ -1,4 +1,4 @@
-# LuckyWeeky
+# LuckyWeeky: 음성 기반 AI 일정 계획 서비스
 
 ---
 <div align="center">
