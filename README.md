@@ -3,6 +3,7 @@
 ---
 <div align="center">
     <img src="https://github.com/user-attachments/assets/1e304651-bdd5-43ab-a884-79fede7964b1" alt="luckyweekylogo2" width="300">
+    <img src="https://github.com/user-attachments/assets/37b49949-9df3-4c2a-ad99-3812e593c1f6" alt="screenshot" width="500">
 </div>
 
 > **삼성 청년 소프트웨어 아카데미 12기**  
