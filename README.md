@@ -1,4 +1,4 @@
-# LuckyWeeky: 음성 기반 AI 일정 계획 서비스
+# 🗓LuckyWeeky: 음성을 통한 AI 일정 계획 캘린더 서비스
 
 ---
 <div align="center">
