@@ -134,16 +134,16 @@ CREATE TABLE subschedule (
   "SECREATKEY": "pdFfOvKx3mEmfhkZcTWd5WNCaHxeInRK"
 }
 ```
-
 # 기술 스택🐈
 
 | Category | Technologies                                                                                                                     |
 |----------|----------------------------------------------------------------------------------------------------------------------------------|
 | **FE**   | [![React Badge](https://img.shields.io/badge/React-61DAFB.svg?style=flat&logo=react&logoColor=white)]() [![TailwindCSS Badge](https://img.shields.io/badge/Tailwind_CSS-38B2AC.svg?style=flat&logo=Tailwind%20CSS&logoColor=white)]() [![Zustand Badge](https://img.shields.io/badge/Zustand-8AA3FF.svg?style=flat&logo=Zustand&logoColor=white)]() |
-| **BE**   | [![Servlet Badge](https://img.shields.io/badge/Servlet-EB7A07.svg?style=flat&logo=openjdk&logoColor=white)]() [![MyBatis Badge](https://img.shields.io/badge/MyBatis-B32137.svg?style=flat&logo=data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDI2NSAzMDAiIHdpZHRoPSIyNjUiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PC9zdmc+&logoColor=white)]() [![Docker Badge](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white)]() |
+| **BE**   | [![Servlet Badge](https://img.shields.io/badge/Servlet-EB7A07.svg?style=flat&logo=openjdk&logoColor=white)]() [![MyBatis Badge](https://img.shields.io/badge/MyBatis-B32137.svg?style=flat&logo=data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDI2NSAzMDAiIHdpZHRoPSIyNjUiIHhtbDpzcGFjZT0icHJlc2VydmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PC9zdmc+&logoColor=white)]() [![Docker Badge](https://img.shields.io/badge/Docker-2496ED.svg?style=flat&logo=Docker&logoColor=white)]() [![Tomcat Badge](https://img.shields.io/badge/Tomcat_10.1.3-F8DC75.svg?style=flat&logo=apache-tomcat&logoColor=black)]() |
 | **DB**   | [![MySQL Badge](https://img.shields.io/badge/MySQL-4479A1.svg?style=flat&logo=mysql&logoColor=white)]()                                                               |
 | **Infra**| [![AWS Badge](https://img.shields.io/badge/AWS-232F3E.svg?style=flat&logo=amazon-aws&logoColor=white)]() [![Terraform Badge](https://img.shields.io/badge/Terraform-7B42BC.svg?style=flat&logo=terraform&logoColor=white)]() |
 | **APM**  | [![Prometheus Badge](https://img.shields.io/badge/Prometheus-E6522C.svg?style=flat&logo=prometheus&logoColor=white)]() [![Grafana Badge](https://img.shields.io/badge/Grafana-F46800.svg?style=flat&logo=grafana&logoColor=white)]() [![JMeter Badge](https://img.shields.io/badge/JMeter-D22128.svg?style=flat&logo=apache-jmeter&logoColor=white)]() |
+
 
 
 ---
