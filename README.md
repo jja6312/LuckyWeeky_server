@@ -37,7 +37,7 @@
 ## 주안점
 - 스프링의 소스코드를 확인해보며, 개발시 대다수의 기능을 사용하지 않는다는 사실에서 성능에 대한 의문을 가졌음.
 이에 웹 서칭을 진행했고, Servlet을 사용하면 4~6배의 성능 이점을 가질수 있다는 InfoQ 사이트의 비교 표를 근거로 Servlet을 사용하기로 결정했습니다.
-- 프로젝트를 진행하며 새로 배운 기술 : Docker, Terraform, Prometheus, Grafana, AWS ECS Fargate, https통신, AWS NAT, 다중AZ를 통한 로드밸런싱 등 필요 기술을 적극적으로 학습 및 적용
+- 3주 간 프로젝트를 진행하며 새로 배운 기술 : Docker, Terraform, Prometheus, Grafana, AWS ECS Fargate, https통신, AWS NAT, 다중AZ를 통한 로드밸런싱 등 필요 기술을 적극적으로 학습 및 적용
 ---
 
 # 시작 가이드
